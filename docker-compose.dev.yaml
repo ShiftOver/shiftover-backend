@@ -1,0 +1,14 @@
+name: shiftover-backend
+
+services:
+  app:
+    container_name: shiftover-backend
+    build:
+      context: .
+      dockerfile: build/docker/Dockerfile.dev
+    volumes:
+      - .:/src/go
+    ports:
+      - 8080:8080
+    working_dir: /src/go
+    command: air -c .air.toml
