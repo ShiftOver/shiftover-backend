@@ -18,4 +18,16 @@ rehooks:
 	pre-commit install -t pre-push
 	pre-commit install -t commit-msg
 
-.PHONY: prepare rehooks
+dev.up:
+	@echo "Starting local development..."
+	docker compose -f docker-compose.dev.yaml up
+
+dev.down:
+	@echo "Removing local development container..."
+	docker-compose down
+
+swagger:
+	@echo "Generating swagger docs..."
+	swag init
+
+.PHONY: prepare rehooks dev.up dev.down swagger
