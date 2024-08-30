@@ -14,17 +14,23 @@ type Port interface {
 }
 
 type service struct {
-	userRepository repository.UserRepository
+	userRepository    repository.UserRepository
+	authRepository    repository.FirebaseAuthRepository
+	storageRepository repository.FirebaseStorageRepository
 }
 
 // Dependencies represents the dependencies for the service
 type Dependencies struct {
-	UserRepository repository.UserRepository
+	UserRepository    repository.UserRepository
+	AuthRepository    repository.FirebaseAuthRepository
+	StorageRepository repository.FirebaseStorageRepository
 }
 
 // New creates a new service
 func New(d Dependencies) Port {
 	return &service{
-		userRepository: d.UserRepository,
+		userRepository:    d.UserRepository,
+		authRepository:    d.AuthRepository,
+		storageRepository: d.StorageRepository,
 	}
 }

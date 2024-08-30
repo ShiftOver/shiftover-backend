@@ -8,7 +8,10 @@ services:
       dockerfile: build/docker/Dockerfile.dev
     volumes:
       - .:/src/go
+      - ~/.config/gcloud/application_default_credentials.json:/root/.config/gcloud/application_default_credentials.json
     ports:
       - 8080:8080
     working_dir: /src/go
+    environment:
+      - GOOGLE_APPLICATION_CREDENTIALS=/root/.config/gcloud/application_default_credentials.json
     command: air -c .air.toml

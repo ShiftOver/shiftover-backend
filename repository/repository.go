@@ -11,3 +11,11 @@ import (
 type UserRepository interface {
 	List(ctx context.Context) ([]*dto.UserEntity, error)
 }
+
+// FirebaseAuthRepository represents the repository functions for the firebase auth
+type FirebaseAuthRepository interface {
+}
+
+// FirebaseStorageRepository represents the repository functions for the firebase storage
+type FirebaseStorageRepository interface {
+}
