@@ -2,11 +2,15 @@
 package service
 
 import (
+	"context"
+
+	"github.com/ShiftOver/shiftover-backend/dto"
 	"github.com/ShiftOver/shiftover-backend/repository"
 )
 
 // Port represents the service layer functions
 type Port interface {
+	ListUser(ctx context.Context) ([]*dto.UserEntity, error)
 }
 
 type service struct {

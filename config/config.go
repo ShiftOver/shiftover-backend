@@ -45,6 +45,7 @@ func LoadConfig(env string) (Config, error) {
 		},
 		MongoConfig: MongoConfig{
 			HostName: requiredEnv("MONGO_HOST"),
+			DBName:   requiredEnv("MONGO_DBNAME"),
 			Username: requiredEnv("MONGO_USERNAME"),
 			Password: requiredEnv("MONGO_PASSWORD"),
 		},
