@@ -2,28 +2,25 @@
 package service
 
 import (
-	"context"
-
 	"github.com/ShiftOver/shiftover-backend/repository"
 )
 
 // Port represents the service layer functions
 type Port interface {
-	DoExample(pctx context.Context) (string, error)
 }
 
 type service struct {
-	exampleRepository repository.ExampleRepository
+	userRepository repository.UserRepository
 }
 
 // Dependencies represents the dependencies for the service
 type Dependencies struct {
-	ExampleRepository repository.ExampleRepository
+	UserRepository repository.UserRepository
 }
 
 // New creates a new service
 func New(d Dependencies) Port {
 	return &service{
-		exampleRepository: d.ExampleRepository,
+		userRepository: d.UserRepository,
 	}
 }
