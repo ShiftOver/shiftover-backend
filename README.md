@@ -13,3 +13,8 @@ Rehook pre-commit
 ```bash
 make rehooks
 ```
+
+To start the local development server
+```bash
+make dev.up
+```
