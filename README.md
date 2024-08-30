@@ -18,3 +18,8 @@ To start the local development server
 ```bash
 make dev.up
 ```
+
+To stop the local development server
+```bash
+make dev.down
+```
