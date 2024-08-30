@@ -18,6 +18,7 @@ import (
 type Config struct {
 	AppConfig            config.AppConfig
 	MongoConfig          config.MongoConfig
+	FirebaseConfig       config.FirebaseConfig
 	UserRepositoryConfig repository.UserRepositoryConfig
 }
 
@@ -28,10 +29,17 @@ func New(c Config) {
 	e := echo.New()
 	setupServer(ctx, e, c)
 
+	authRepo, storageRepo, err := setupFirebase(ctx, c.FirebaseConfig)
+	if err != nil {
+		log.Panicf("error - [di.setupFirebase] unable to initialize Firebase client: %v", err)
+	}
+
 	userRepo := newMongoRepositories(ctx, c)
 
 	service := service.New(service.Dependencies{
-		UserRepository: userRepo,
+		UserRepository:    userRepo,
+		AuthRepository:    authRepo,
+		StorageRepository: storageRepo,
 	})
 
 	handler.New(e, handler.Dependencies{
