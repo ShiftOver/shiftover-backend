@@ -30,7 +30,10 @@ func main() {
 	}
 
 	di.New(di.Config{
-		AppConfig:               cfg.AppConfig,
-		ExampleRepositoryConfig: repository.ExampleRepositoryConfig{},
+		AppConfig:   cfg.AppConfig,
+		MongoConfig: cfg.MongoConfig,
+		UserRepositoryConfig: repository.UserRepositoryConfig{
+			CollectionName: os.Getenv("MONGO_COLLECTION_USER"),
+		},
 	})
 }

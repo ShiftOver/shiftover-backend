@@ -10,7 +10,8 @@ import (
 
 // Config represents the configuration of the server
 type Config struct {
-	AppConfig AppConfig
+	AppConfig   AppConfig
+	MongoConfig MongoConfig
 }
 
 // AppConfig represents the configuration of the application
@@ -18,6 +19,14 @@ type AppConfig struct {
 	Name     string
 	Port     string
 	EnvStage string
+}
+
+// MongoConfig represents the configuration of the MongoDB
+type MongoConfig struct {
+	HostName string
+	DBName   string
+	Username string
+	Password string
 }
 
 // LoadConfig loads the configuration from the .env file
@@ -33,6 +42,12 @@ func LoadConfig(env string) (Config, error) {
 			Name:     requiredEnv("APP_NAME"),
 			Port:     requiredEnv("APP_PORT"),
 			EnvStage: requiredEnv("APP_ENV_STAGE"),
+		},
+		MongoConfig: MongoConfig{
+			HostName: requiredEnv("MONGO_HOST"),
+			DBName:   requiredEnv("MONGO_DBNAME"),
+			Username: requiredEnv("MONGO_USERNAME"),
+			Password: requiredEnv("MONGO_PASSWORD"),
 		},
 	}, nil
 }

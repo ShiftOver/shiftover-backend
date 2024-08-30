@@ -5,9 +5,8 @@ import (
 	"context"
 	"net/http"
 
-	"github.com/labstack/gommon/log"
-
 	"github.com/labstack/echo/v4"
+	"github.com/labstack/gommon/log"
 
 	"github.com/ShiftOver/shiftover-backend/config"
 	"github.com/ShiftOver/shiftover-backend/handler"
@@ -17,8 +16,9 @@ import (
 
 // Config represents the configuration of the service
 type Config struct {
-	AppConfig               config.AppConfig
-	ExampleRepositoryConfig repository.ExampleRepositoryConfig
+	AppConfig            config.AppConfig
+	MongoConfig          config.MongoConfig
+	UserRepositoryConfig repository.UserRepositoryConfig
 }
 
 // New injects the dependencies for the server
@@ -28,10 +28,10 @@ func New(c Config) {
 	e := echo.New()
 	setupServer(ctx, e, c)
 
-	exampleRepo := repository.NewExampleRepository(c.ExampleRepositoryConfig)
+	userRepo := newMongoRepositories(ctx, c)
 
 	service := service.New(service.Dependencies{
-		ExampleRepository: exampleRepo,
+		UserRepository: userRepo,
 	})
 
 	handler.New(e, handler.Dependencies{
