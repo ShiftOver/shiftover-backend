@@ -14,7 +14,7 @@ import (
 	"github.com/ShiftOver/shiftover-backend/repository"
 )
 
-func newMongoRepositories(pctx context.Context, c Config) repository.UserRepository {
+func newMongoRepositories(pctx context.Context, c Config) (repository.UserRepository, repository.PatientRepository, repository.HospitalRepository, repository.WardRepository, repository.RoomRepository) {
 	ctx, cancel := context.WithTimeout(pctx, 10*time.Second)
 	defer cancel()
 
@@ -34,5 +34,17 @@ func newMongoRepositories(pctx context.Context, c Config) repository.UserReposit
 	userColl := client.Database(c.MongoConfig.DBName).Collection(c.UserRepositoryConfig.CollectionName)
 	userRepo := repository.NewUserRepository(*userColl)
 
-	return userRepo
+	patientColl := client.Database(c.MongoConfig.DBName).Collection(c.PatientRepositoryConfig.CollectionName)
+	patientRepo := repository.NewPatientRepository(*patientColl)
+
+	hospitalColl := client.Database(c.MongoConfig.DBName).Collection(c.HospitalRepositoryConfig.CollectionName)
+	hospitalRepo := repository.NewHospitalRepository(*hospitalColl)
+
+	wardColl := client.Database(c.MongoConfig.DBName).Collection(c.WardRepositoryConfig.CollectionName)
+	wardRepo := repository.NewWardRepository(*wardColl)
+
+	roomColl := client.Database(c.MongoConfig.DBName).Collection(c.RoomRepositoryConfig.CollectionName)
+	roomRepo := repository.NewRoomRepository(*roomColl)
+
+	return userRepo, patientRepo, hospitalRepo, wardRepo, roomRepo
 }

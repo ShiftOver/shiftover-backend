@@ -16,7 +16,7 @@ import (
 // @version 1.0
 // @description This is the API documentation for shiftover-backend
 
-// @BasePath /server
+// @BasePath /
 func main() {
 	env := os.Getenv("APP_ENV_STAGE")
 	if env == "" {
@@ -35,6 +35,18 @@ func main() {
 		FirebaseConfig: cfg.FirebaseConfig,
 		UserRepositoryConfig: repository.UserRepositoryConfig{
 			CollectionName: os.Getenv("MONGO_COLLECTION_USER"),
+		},
+		PatientRepositoryConfig: repository.PatientRepositoryConfig{
+			CollectionName: os.Getenv("MONGO_COLLECTION_PATIENT"),
+		},
+		HospitalRepositoryConfig: repository.HospitalRepositoryConfig{
+			CollectionName: os.Getenv("MONGO_COLLECTION_HOSPITAL"),
+		},
+		WardRepositoryConfig: repository.WardRepositoryConfig{
+			CollectionName: os.Getenv("MONGO_COLLECTION_WARD"),
+		},
+		RoomRepositoryConfig: repository.RoomRepositoryConfig{
+			CollectionName: os.Getenv("MONGO_COLLECTION_ROOM"),
 		},
 	})
 }
