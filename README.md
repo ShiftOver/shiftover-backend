@@ -43,5 +43,5 @@ make migrate.down
 
 To view migration status
 ```bash
-migrate-mongo status
+migrate-mongo statussss
 ```
