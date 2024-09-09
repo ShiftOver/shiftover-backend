@@ -21,6 +21,7 @@ type service struct {
 	roomRepository     repository.RoomRepository
 	authRepository     repository.FirebaseAuthRepository
 	storageRepository  repository.FirebaseStorageRepository
+	counterRepository  repository.CounterRepository
 }
 
 // Dependencies represents the dependencies for the service
@@ -32,6 +33,7 @@ type Dependencies struct {
 	RoomRepository     repository.RoomRepository
 	AuthRepository     repository.FirebaseAuthRepository
 	StorageRepository  repository.FirebaseStorageRepository
+	CounterRepository  repository.CounterRepository
 }
 
 // New creates a new service
@@ -44,5 +46,6 @@ func New(d Dependencies) Port {
 		roomRepository:     d.RoomRepository,
 		authRepository:     d.AuthRepository,
 		storageRepository:  d.StorageRepository,
+		counterRepository:  d.CounterRepository,
 	}
 }

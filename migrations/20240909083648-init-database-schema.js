@@ -5,12 +5,13 @@ module.exports = {
       validator: {
         $jsonSchema: {
           bsonType: 'object',
-          required: ['userId', 'nurseId', 'firstName', 'lastName', 'profilePictureUrl', 'wardId', 'startDate', 'dateOfBirth', 'position', 'contact', 'createdAt', 'updatedAt'],
+          required: ['userId', 'nurseId', 'firstName', 'lastName', 'email', 'profilePictureUrl', 'wardId', 'startDate', 'dateOfBirth', 'position', 'contact', 'createdAt', 'updatedAt'],
           properties: {
             userId: { bsonType: 'string' },
             nurseId: { bsonType: 'string' },
             firstName: { bsonType: 'string' },
             lastName: { bsonType: 'string' },
+            email: { bsonType: 'string' },
             profilePictureUrl: { bsonType: 'string' },
             wardId: { bsonType: 'string' },
             startDate: { bsonType: 'date' },
@@ -101,6 +102,10 @@ module.exports = {
       }
     });
 
+    // counters collection
+    await db.createCollection('counters');
+    await db.collection('counters').insertOne({ _id: 'userId', sequence_value: 0 });
+
   },
 
   async down(db, client) {
@@ -109,5 +114,6 @@ module.exports = {
     await db.collection('hospitals').drop();
     await db.collection('wards').drop();
     await db.collection('rooms').drop();
+    await db.collection('counter').drop();
   }
 };

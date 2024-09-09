@@ -48,5 +48,8 @@ func main() {
 		RoomRepositoryConfig: repository.RoomRepositoryConfig{
 			CollectionName: os.Getenv("MONGO_COLLECTION_ROOM"),
 		},
+		CounterRepositoryConfig: repository.CounterRepositoryConfig{
+			CollectionName: os.Getenv("MONGO_COLLECTION_COUNTER"),
+		},
 	})
 }

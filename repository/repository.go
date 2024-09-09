@@ -28,8 +28,13 @@ type WardRepository interface {
 type RoomRepository interface {
 }
 
+// CounterRepository represents the repository functions for the counters collection
+type CounterRepository interface {
+}
+
 // FirebaseAuthRepository represents the repository functions for the firebase auth
 type FirebaseAuthRepository interface {
+	SignUp(ctx context.Context, payload *dto.SignUpReq, userID, hospitalID string) error
 }
 
 // FirebaseStorageRepository represents the repository functions for the firebase storage
