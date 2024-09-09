@@ -9,6 +9,10 @@ prepare:
 	pre-commit install -t pre-push
 	pre-commit install -t commit-msg
 
+	@echo "Installing npm packages..."
+	npm install
+	npm install -g migrate-mongo
+
 rehooks:
 	@echo "Clear git hooks cache..."
 	pre-commit clean
@@ -30,4 +34,12 @@ swagger:
 	@echo "Generating swagger docs..."
 	swag init
 
-.PHONY: prepare rehooks dev.up dev.down swagger
+migrate.up:
+	@echo "Running migrations..."
+	migrate-mongo up
+
+migrate.down:
+	@echo "Rolling back migrations..."
+	migrate-mongo down
+
+.PHONY: prepare rehooks dev.up dev.down swagger migrate.up migrate.down
