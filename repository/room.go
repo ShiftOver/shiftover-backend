@@ -6,12 +6,12 @@ type roomRepository struct {
 	collection mongo.Collection
 }
 
-// RoomRepositoryConfig represents the configuration for example repository
+// RoomRepositoryConfig represents the configuration for room repository
 type RoomRepositoryConfig struct {
 	CollectionName string
 }
 
-// NewRoomRepository creates a new example repository
+// NewRoomRepository creates a new room repository
 func NewRoomRepository(collection mongo.Collection) RoomRepository {
 	return &roomRepository{
 		collection: collection,

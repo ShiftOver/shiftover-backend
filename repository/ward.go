@@ -6,12 +6,12 @@ type wardRepository struct {
 	collection mongo.Collection
 }
 
-// WardRepositoryConfig represents the configuration for example repository
+// WardRepositoryConfig represents the configuration for ward repository
 type WardRepositoryConfig struct {
 	CollectionName string
 }
 
-// NewWardRepository creates a new example repository
+// NewWardRepository creates a new ward repository
 func NewWardRepository(collection mongo.Collection) WardRepository {
 	return &wardRepository{
 		collection: collection,

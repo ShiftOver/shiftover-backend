@@ -6,12 +6,12 @@ type counterRepository struct {
 	collection mongo.Collection
 }
 
-// CounterRepositoryConfig represents the configuration for example repository
+// CounterRepositoryConfig represents the configuration for counter repository
 type CounterRepositoryConfig struct {
 	CollectionName string
 }
 
-// NewCounterRepository creates a new example repository
+// NewCounterRepository creates a new counter repository
 func NewCounterRepository(collection mongo.Collection) CounterRepository {
 	return &counterRepository{
 		collection: collection,
