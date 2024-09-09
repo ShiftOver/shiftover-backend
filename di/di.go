@@ -16,10 +16,14 @@ import (
 
 // Config represents the configuration of the service
 type Config struct {
-	AppConfig            config.AppConfig
-	MongoConfig          config.MongoConfig
-	FirebaseConfig       config.FirebaseConfig
-	UserRepositoryConfig repository.UserRepositoryConfig
+	AppConfig                config.AppConfig
+	MongoConfig              config.MongoConfig
+	FirebaseConfig           config.FirebaseConfig
+	UserRepositoryConfig     repository.UserRepositoryConfig
+	PatientRepositoryConfig  repository.PatientRepositoryConfig
+	HospitalRepositoryConfig repository.HospitalRepositoryConfig
+	WardRepositoryConfig     repository.WardRepositoryConfig
+	RoomRepositoryConfig     repository.RoomRepositoryConfig
 }
 
 // New injects the dependencies for the server
@@ -34,12 +38,16 @@ func New(c Config) {
 		log.Panicf("error - [di.setupFirebase] unable to initialize Firebase client: %v", err)
 	}
 
-	userRepo := newMongoRepositories(ctx, c)
+	userRepo, patientRepo, hospitalRepo, wardRepo, roomRepo := newMongoRepositories(ctx, c)
 
 	service := service.New(service.Dependencies{
-		UserRepository:    userRepo,
-		AuthRepository:    authRepo,
-		StorageRepository: storageRepo,
+		UserRepository:     userRepo,
+		PatientRepository:  patientRepo,
+		HospitalRepository: hospitalRepo,
+		WardRepository:     wardRepo,
+		RoomRepository:     roomRepo,
+		AuthRepository:     authRepo,
+		StorageRepository:  storageRepo,
 	})
 
 	handler.New(e, handler.Dependencies{
