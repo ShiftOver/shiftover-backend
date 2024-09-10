@@ -26,7 +26,6 @@ func (r *firebaseAuthRepository) SignUp(ctx context.Context, payload *dto.SignUp
 	_ = user
 
 	err = r.authClient.SetCustomUserClaims(ctx, user.UID, map[string]interface{}{
-		"uid":         userID,
 		"nurse_id":    payload.NurseID,
 		"ward_id":     payload.WardID,
 		"hospital_id": hospitalID,

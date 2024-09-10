@@ -3,6 +3,7 @@ package repository
 import (
 	"context"
 
+	"github.com/labstack/gommon/log"
 	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/bson"
 )
@@ -16,6 +17,8 @@ func (r *counterRepository) GetCurrentUserIDCount(ctx context.Context) (int, err
 	result := r.collection.FindOne(ctx, bson.D{
 		{Key: "_id", Value: "userId"},
 	})
+
+	log.Info(result.Err())
 
 	if err := result.Decode(&counter); err != nil {
 		return -1, errors.Wrap(err, "error - [counterRepository.GetCurrentUserIDCount]: unable to decode result")

@@ -10,7 +10,7 @@ import (
 
 // Port represents the service layer functions
 type Port interface {
-	ListUser(ctx context.Context) ([]*dto.UserEntity, error)
+	SignUp(ctx context.Context, req *dto.SignUpReq) (*dto.SignUpRes, error)
 }
 
 type service struct {

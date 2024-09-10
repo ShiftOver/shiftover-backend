@@ -9,7 +9,7 @@ import (
 
 // UserRepository represents the repository functions for the users collection
 type UserRepository interface {
-	List(ctx context.Context) ([]*dto.UserEntity, error)
+	InsertUser(ctx context.Context, payload *dto.UserEntity) error
 }
 
 // PatientRepository represents the repository functions for the patients collection
@@ -30,6 +30,9 @@ type RoomRepository interface {
 
 // CounterRepository represents the repository functions for the counters collection
 type CounterRepository interface {
+	GetCurrentUserIDCount(ctx context.Context) (int, error)
+	IncrementUserIDCount(ctx context.Context) error
+	DecrementUserIDCount(ctx context.Context) error
 }
 
 // FirebaseAuthRepository represents the repository functions for the firebase auth

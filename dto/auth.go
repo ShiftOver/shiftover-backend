@@ -2,23 +2,22 @@ package dto
 
 // SignUpReq represents the request dto for the sign up endpoint
 type SignUpReq struct {
-	NurseID           string `json:"nurse_id" form:"nurse_id" validate:"required"`
-	FirstName         string `json:"first_name" form:"first_name" validate:"required"`
-	LastName          string `json:"last_name" form:"last_name" validate:"required"`
+	NurseID           string `json:"nurseId" form:"nurseId" validate:"required"`
+	FirstName         string `json:"firstName" form:"firstName" validate:"required"`
+	LastName          string `json:"lastName" form:"lastName" validate:"required"`
 	Email             string `json:"email" form:"email" validate:"required,email"`
 	Password          string `json:"password" form:"password" validate:"required"`
-	ProfilePictureURL string `json:"profile_picture_url" form:"profile_picture_url"`
-	WardID            string `json:"ward_id" form:"ward_id" validate:"required"`
-	StartDate         string `json:"start_date" form:"start_date" validate:"required"`
-	DateOfBirth       string `json:"date_of_birth" form:"date_of_birth" validate:"required"`
+	ProfilePictureURL string `json:"profilePictureUrl" form:"profilePictureUrl"`
+	WardID            string `json:"wardId" form:"wardId" validate:"required"`
+	StartDate         string `json:"startDate" form:"startDate" validate:"required"`
+	DateOfBirth       string `json:"dateOfBirth" form:"dateOfBirth" validate:"required"`
 	Position          string `json:"position" form:"position" validate:"required"`
 	Contact           string `json:"contact" form:"contact" validate:"required"`
 }
 
 // SignUpRes represents the response dto for the sign up endpoint
 type SignUpRes struct {
-	UserID      string `json:"user_id"`
-	NurseID     string `json:"nurse_id"`
-	Email       string `json:"email"`
-	FirebaseUID string `json:"firebase_uid"`
+	UserID  string `json:"userId"`
+	NurseID string `json:"nurseId"`
+	Email   string `json:"email"`
 }
