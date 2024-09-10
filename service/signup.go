@@ -7,38 +7,36 @@ import (
 
 	"github.com/ShiftOver/shiftover-backend/dto"
 	"github.com/ShiftOver/shiftover-backend/pkg/utils"
+	"github.com/pkg/errors"
 )
-
-func countDigits(n int) int {
-	count := 0
-	for n != 0 {
-		n /= 10
-		count++
-	}
-	return count
-}
 
 func (s *service) SignUp(ctx context.Context, req *dto.SignUpReq) (*dto.SignUpRes, error) {
 	newUserID, err := s.counterRepository.GetCurrentUserIDCount(ctx)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "error - [service.SignUp]: unable to get current userId count")
 	}
 	newUserID++
 
-	digits := countDigits(newUserID)
+	digits := utils.CountDigits(newUserID)
 	userID := "N" + strings.Repeat("0", 7-digits) + strconv.Itoa(newUserID)
 
 	err = s.counterRepository.IncrementUserIDCount(ctx)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "error - [service.SignUp]: unable to increment userId count")
 	}
 
-	err = s.authRepository.SignUp(ctx, req, userID, "5")
+	ward, err := s.wardRepository.Fetch(ctx, req.WardID)
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "error - [service.SignUp]: unable to fetch ward")
+	}
+	hospitalID := ward.HospitalID
+
+	err = s.authRepository.SignUp(ctx, req, userID, hospitalID)
+	if err != nil {
+		return nil, errors.Wrap(err, "error - [service.SignUp]: unable to sign up user")
 	}
 
-	err = s.userRepository.InsertUser(ctx, &dto.UserEntity{
+	err = s.userRepository.Insert(ctx, &dto.UserEntity{
 		UserID:            userID,
 		NurseID:           req.NurseID,
 		FirstName:         req.FirstName,
@@ -54,7 +52,7 @@ func (s *service) SignUp(ctx context.Context, req *dto.SignUpReq) (*dto.SignUpRe
 		UpdatedAt:         utils.LocalTime(),
 	})
 	if err != nil {
-		return nil, err
+		return nil, errors.Wrap(err, "error - [service.SignUp]: unable to insert user")
 	}
 
 	return &dto.SignUpRes{

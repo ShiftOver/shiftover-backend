@@ -59,10 +59,11 @@ module.exports = {
       validator: {
         $jsonSchema: {
           bsonType: 'object',
-          required: ['hospitalId', 'hospitalName', 'createdAt'],
+          required: ['hospitalId', 'hospitalName', 'hospitalAbbreviation', 'createdAt'],
           properties: {
             hospitalId: { bsonType: 'string' },
             hospitalName: { bsonType: 'string' },
+            hospitalAbbreviation: { bsonType: 'string' },
             createdAt: { bsonType: 'date' },
           }
         }
@@ -105,6 +106,10 @@ module.exports = {
     // counters collection
     await db.createCollection('counters');
     await db.collection('counters').insertOne({ _id: 'userId', sequence_value: 0 });
+    await db.collection('counters').insertOne({ _id: 'patientId', sequence_value: 0 });
+    await db.collection('counters').insertOne({ _id: 'hospitalId', sequence_value: 0 });
+    await db.collection('counters').insertOne({ _id: 'wardId', sequence_value: 0 });
+    await db.collection('counters').insertOne({ _id: 'roomId', sequence_value: 0 });
 
   },
 
@@ -114,6 +119,6 @@ module.exports = {
     await db.collection('hospitals').drop();
     await db.collection('wards').drop();
     await db.collection('rooms').drop();
-    await db.collection('counter').drop();
+    await db.collection('counters').drop();
   }
 };

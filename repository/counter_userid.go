@@ -3,28 +3,23 @@ package repository
 import (
 	"context"
 
-	"github.com/labstack/gommon/log"
 	"github.com/pkg/errors"
 	"go.mongodb.org/mongo-driver/bson"
-)
 
-var counter struct {
-	id            string `bson:"_id"`
-	sequenceValue int    `bson:"sequence_value"`
-}
+	"github.com/ShiftOver/shiftover-backend/dto"
+)
 
 func (r *counterRepository) GetCurrentUserIDCount(ctx context.Context) (int, error) {
 	result := r.collection.FindOne(ctx, bson.D{
 		{Key: "_id", Value: "userId"},
 	})
 
-	log.Info(result.Err())
-
-	if err := result.Decode(&counter); err != nil {
+	var entity dto.CounterEntity
+	if err := result.Decode(&entity); err != nil {
 		return -1, errors.Wrap(err, "error - [counterRepository.GetCurrentUserIDCount]: unable to decode result")
 	}
 
-	return counter.sequenceValue, nil
+	return entity.SequenceValue, nil
 }
 
 func (r *counterRepository) IncrementUserIDCount(ctx context.Context) error {

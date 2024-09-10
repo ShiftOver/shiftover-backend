@@ -21,6 +21,16 @@ func LocalTime() time.Time {
 	return time.Now().In(loc)
 }
 
+// CountDigits counts the number of digits in a number
+func CountDigits(n int) int {
+	count := 0
+	for n != 0 {
+		n /= 10
+		count++
+	}
+	return count
+}
+
 // ConvertStringTimetoTime converts a string time to time.Time
 func ConvertStringTimetoTime(t string) time.Time {
 	layout := "2006-01-02T15:04:05.999 -0700 MST"
