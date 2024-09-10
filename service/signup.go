@@ -27,12 +27,14 @@ func (s *service) SignUp(ctx context.Context, req *dto.SignUpReq) (*dto.SignUpRe
 
 	ward, err := s.wardRepository.Fetch(ctx, req.WardID)
 	if err != nil {
+		_ = s.counterRepository.DecrementUserIDCount(ctx)
 		return nil, errors.Wrap(err, "error - [service.SignUp]: unable to fetch ward")
 	}
 	hospitalID := ward.HospitalID
 
 	err = s.authRepository.SignUp(ctx, req, userID, hospitalID)
 	if err != nil {
+		_ = s.counterRepository.DecrementUserIDCount(ctx)
 		return nil, errors.Wrap(err, "error - [service.SignUp]: unable to sign up user")
 	}
 
