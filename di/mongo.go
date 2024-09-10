@@ -14,7 +14,7 @@ import (
 	"github.com/ShiftOver/shiftover-backend/repository"
 )
 
-func newMongoRepositories(pctx context.Context, c Config) (repository.UserRepository, repository.PatientRepository, repository.HospitalRepository, repository.WardRepository, repository.RoomRepository) {
+func newMongoRepositories(pctx context.Context, c Config) (repository.UserRepository, repository.PatientRepository, repository.HospitalRepository, repository.WardRepository, repository.RoomRepository, repository.CounterRepository) {
 	ctx, cancel := context.WithTimeout(pctx, 10*time.Second)
 	defer cancel()
 
@@ -46,5 +46,8 @@ func newMongoRepositories(pctx context.Context, c Config) (repository.UserReposi
 	roomColl := client.Database(c.MongoConfig.DBName).Collection(c.RoomRepositoryConfig.CollectionName)
 	roomRepo := repository.NewRoomRepository(*roomColl)
 
-	return userRepo, patientRepo, hospitalRepo, wardRepo, roomRepo
+	counterColl := client.Database(c.MongoConfig.DBName).Collection(c.CounterRepositoryConfig.CollectionName)
+	counterRepo := repository.NewCounterRepository(*counterColl)
+
+	return userRepo, patientRepo, hospitalRepo, wardRepo, roomRepo, counterRepo
 }

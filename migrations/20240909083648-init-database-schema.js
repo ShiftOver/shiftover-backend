@@ -5,16 +5,17 @@ module.exports = {
       validator: {
         $jsonSchema: {
           bsonType: 'object',
-          required: ['userId', 'nurseId', 'firstName', 'lastName', 'profilePictureUrl', 'wardId', 'startDate', 'dateOfBirth', 'position', 'contact', 'createdAt', 'updatedAt'],
+          required: ['userId', 'nurseId', 'firstName', 'lastName', 'email', 'profilePictureUrl', 'wardId', 'startDate', 'dateOfBirth', 'position', 'contact', 'createdAt', 'updatedAt'],
           properties: {
             userId: { bsonType: 'string' },
             nurseId: { bsonType: 'string' },
             firstName: { bsonType: 'string' },
             lastName: { bsonType: 'string' },
+            email: { bsonType: 'string' },
             profilePictureUrl: { bsonType: 'string' },
             wardId: { bsonType: 'string' },
-            startDate: { bsonType: 'date' },
-            dateOfBirth: { bsonType: 'date' },
+            startDate: { bsonType: 'string' },
+            dateOfBirth: { bsonType: 'string' },
             position: { bsonType: 'string' },
             contact: { bsonType: 'string' },
             createdAt: { bsonType: 'date' },
@@ -34,7 +35,7 @@ module.exports = {
             patientId: { bsonType: 'string' },
             firstName: { bsonType: 'string' },
             lastName: { bsonType: 'string' },
-            dateOfBirth: { bsonType: 'date' },
+            dateOfBirth: { bsonType: 'string' },
             hn: { bsonType: 'string' },
             gender: { enum: ["male", "female", "others"] },
             allergies: {
@@ -58,10 +59,11 @@ module.exports = {
       validator: {
         $jsonSchema: {
           bsonType: 'object',
-          required: ['hospitalId', 'hospitalName', 'createdAt'],
+          required: ['hospitalId', 'hospitalName', 'hospitalAbbreviation', 'createdAt'],
           properties: {
             hospitalId: { bsonType: 'string' },
             hospitalName: { bsonType: 'string' },
+            hospitalAbbreviation: { bsonType: 'string' },
             createdAt: { bsonType: 'date' },
           }
         }
@@ -101,6 +103,14 @@ module.exports = {
       }
     });
 
+    // counters collection
+    await db.createCollection('counters');
+    await db.collection('counters').insertOne({ _id: 'userId', sequence_value: 0 });
+    await db.collection('counters').insertOne({ _id: 'patientId', sequence_value: 0 });
+    await db.collection('counters').insertOne({ _id: 'hospitalId', sequence_value: 0 });
+    await db.collection('counters').insertOne({ _id: 'wardId', sequence_value: 0 });
+    await db.collection('counters').insertOne({ _id: 'roomId', sequence_value: 0 });
+
   },
 
   async down(db, client) {
@@ -109,5 +119,6 @@ module.exports = {
     await db.collection('hospitals').drop();
     await db.collection('wards').drop();
     await db.collection('rooms').drop();
+    await db.collection('counters').drop();
   }
 };

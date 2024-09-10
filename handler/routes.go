@@ -11,8 +11,10 @@ func (h *httpHandler) initRoutes(e *echo.Echo) {
 
 	v1 := e.Group("/v1")
 
+	authV1 := v1.Group("/auth")
+	authV1.POST("/signup", h.SignUp)
+
 	userV1 := v1.Group("/user")
-	userV1.GET("/", h.ListUser)
 
 	patientV1 := v1.Group("/patient")
 
@@ -22,11 +24,9 @@ func (h *httpHandler) initRoutes(e *echo.Echo) {
 
 	roomV1 := v1.Group("/room")
 
-	authV1 := v1.Group("/auth")
-
+	_ = userV1
 	_ = patientV1
 	_ = hospitalV1
 	_ = wardV1
 	_ = roomV1
-	_ = authV1
 }

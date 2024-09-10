@@ -10,14 +10,14 @@ type firebaseStorageRepository struct {
 	userProfileObjectPath string
 }
 
-// StorageDependencies represents the dependencies for the repository
+// StorageDependencies represents the dependencies for the firebase storage repository
 type StorageDependencies struct {
 	StorageClient         *storage.Client
 	Bucket                string
 	UserProfileObjectPath string
 }
 
-// NewFirebaseStorageRepository creates a new repository
+// NewFirebaseStorageRepository creates a new firebase storage repository
 func NewFirebaseStorageRepository(d StorageDependencies) FirebaseStorageRepository {
 	return &firebaseStorageRepository{
 		storageClient:         d.StorageClient,
