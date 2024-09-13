@@ -22,6 +22,7 @@ type PatientRepository interface {
 type HospitalRepository interface {
 	Fetch(ctx context.Context, hospitalID string) (*dto.HospitalEntity, error)
 	Exists(ctx context.Context, hospitalID string) (bool, error)
+	List(ctx context.Context) ([]*dto.HospitalEntity, error)
 }
 
 // WardRepository represents the repository functions for the wards collection

@@ -30,3 +30,17 @@ func (r *hospitalRepository) Exists(ctx context.Context, hospitalID string) (boo
 
 	return true, nil
 }
+
+func (r *hospitalRepository) List(ctx context.Context) ([]*dto.HospitalEntity, error) {
+	cursor, err := r.collection.Find(ctx, bson.D{})
+	if err != nil {
+		return nil, err
+	}
+
+	results := make([]*dto.HospitalEntity, 0)
+	if err := cursor.All(ctx, results); err != nil {
+		return nil, err
+	}
+
+	return results, nil
+}
