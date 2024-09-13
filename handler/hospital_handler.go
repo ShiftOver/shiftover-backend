@@ -5,6 +5,7 @@ import (
 	"net/http"
 
 	"github.com/labstack/echo/v4"
+	"github.com/pkg/errors"
 
 	"github.com/ShiftOver/shiftover-backend/pkg/response"
 )
@@ -22,7 +23,7 @@ func (h *httpHandler) GetHospital(c echo.Context) error {
 
 	hospital, err := h.d.Service.GetHospital(ctx, hospitalID)
 	if err != nil {
-		return response.ErrResponse(c, http.StatusInternalServerError, "error - [GetHospital]: hospital not found")
+		return response.ErrResponse(c, http.StatusInternalServerError, errors.Wrap(err, "error - [GetHospital]: unable to fetch hospital").Error())
 	}
 
 	return response.SuccessResponse(c, http.StatusOK, hospital)
@@ -39,7 +40,7 @@ func (h *httpHandler) ListHospital(c echo.Context) error {
 
 	hospitals, err := h.d.Service.ListHospital(ctx)
 	if err != nil {
-		return response.ErrResponse(c, http.StatusInternalServerError, "error - [ListHospital]: failed to list hospitals")
+		return response.ErrResponse(c, http.StatusInternalServerError, errors.Wrap(err, "error - [ListHospital]: unable to list hospitals").Error())
 	}
 
 	return response.SuccessResponse(c, http.StatusOK, hospitals)

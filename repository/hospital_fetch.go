@@ -42,7 +42,7 @@ func (r *hospitalRepository) List(ctx context.Context) ([]*dto.HospitalEntity, e
 	}
 
 	results := make([]*dto.HospitalEntity, 0)
-	if err := cursor.All(ctx, results); err != nil {
+	if err := cursor.All(ctx, &results); err != nil {
 		return nil, errors.Wrap(err, "error - [hospitalRepository.List]: unable to decode results")
 	}
 
