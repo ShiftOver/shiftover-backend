@@ -10,6 +10,8 @@ import (
 // UserRepository represents the repository functions for the users collection
 type UserRepository interface {
 	Insert(ctx context.Context, payload *dto.UserEntity) error
+	Fetch(ctx context.Context, userID string) (*dto.UserEntity, error)
+	Exists(ctx context.Context, userID string) (bool, error)
 }
 
 // PatientRepository represents the repository functions for the patients collection
