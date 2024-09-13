@@ -41,7 +41,7 @@ func setupFirebase(pctx context.Context, c config.FirebaseConfig) (repository.Fi
 		AuthClient: authClient,
 	})
 
-	log.Infof("[di.setupFirebase] firebase authentication initialized")
+	log.Info("[di.setupFirebase] firebase authentication initialized")
 
 	storageClient, err := fb.Storage(pctx)
 	if err != nil {
@@ -54,7 +54,7 @@ func setupFirebase(pctx context.Context, c config.FirebaseConfig) (repository.Fi
 		UserProfileObjectPath: c.UserProfileObjectPath,
 	})
 
-	log.Infof("[di.setupFirebase] firebase storage initialized")
+	log.Info("[di.setupFirebase] firebase storage initialized")
 
 	return authRepo, storageRepo, nil
 }

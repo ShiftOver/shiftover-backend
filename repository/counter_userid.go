@@ -9,6 +9,7 @@ import (
 	"github.com/ShiftOver/shiftover-backend/dto"
 )
 
+// GetCurrentUserIDCount fetches the current user id count
 func (r *counterRepository) GetCurrentUserIDCount(ctx context.Context) (int, error) {
 	result := r.collection.FindOne(ctx, bson.D{
 		{Key: "_id", Value: "userId"},
@@ -22,6 +23,7 @@ func (r *counterRepository) GetCurrentUserIDCount(ctx context.Context) (int, err
 	return entity.SequenceValue, nil
 }
 
+// IncrementUserIDCount increments the user id count
 func (r *counterRepository) IncrementUserIDCount(ctx context.Context) error {
 	_, err := r.collection.UpdateOne(ctx, bson.D{
 		{Key: "_id", Value: "userId"},
@@ -37,6 +39,7 @@ func (r *counterRepository) IncrementUserIDCount(ctx context.Context) error {
 	return nil
 }
 
+// DecrementUserIDCount decrements the user id count
 func (r *counterRepository) DecrementUserIDCount(ctx context.Context) error {
 	_, err := r.collection.UpdateOne(ctx, bson.D{
 		{Key: "_id", Value: "userId"},

@@ -10,7 +10,7 @@ import (
 	"github.com/ShiftOver/shiftover-backend/dto"
 )
 
-// FirebaseAuthRepository represents the repository functions for the firebase auth
+// SignUp creates a new user in firebase
 func (r *firebaseAuthRepository) SignUp(ctx context.Context, payload *dto.SignUpReq, userID, hospitalID string) error {
 	params := (&auth.UserToCreate{}).
 		UID(userID).

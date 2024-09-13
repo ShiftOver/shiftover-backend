@@ -11,7 +11,7 @@ import (
 type UserRepository interface {
 	Insert(ctx context.Context, payload *dto.UserEntity) error
 	Fetch(ctx context.Context, userID string) (*dto.UserEntity, error)
-	Exists(ctx context.Context, userID string) (bool, error)
+	Exists(ctx context.Context, userID string) bool
 }
 
 // PatientRepository represents the repository functions for the patients collection
@@ -21,14 +21,14 @@ type PatientRepository interface {
 // HospitalRepository represents the repository functions for the hospitals collection
 type HospitalRepository interface {
 	Fetch(ctx context.Context, hospitalID string) (*dto.HospitalEntity, error)
-	Exists(ctx context.Context, hospitalID string) (bool, error)
+	Exists(ctx context.Context, hospitalID string) bool
 	List(ctx context.Context) ([]*dto.HospitalEntity, error)
 }
 
 // WardRepository represents the repository functions for the wards collection
 type WardRepository interface {
 	Fetch(ctx context.Context, wardID string) (*dto.WardEntity, error)
-	Exists(ctx context.Context, wardID string) (bool, error)
+	Exists(ctx context.Context, wardID string) bool
 	Insert(ctx context.Context, payload *dto.WardEntity) error
 }
 

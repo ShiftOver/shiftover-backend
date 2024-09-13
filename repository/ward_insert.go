@@ -7,6 +7,7 @@ import (
 	"github.com/pkg/errors"
 )
 
+// Insert inserts a new ward into the database
 func (r *wardRepository) Insert(ctx context.Context, payload *dto.WardEntity) error {
 	_, err := r.collection.InsertOne(ctx, payload)
 	if err != nil {
