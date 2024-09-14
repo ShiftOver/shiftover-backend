@@ -6,6 +6,7 @@ import (
 
 	"github.com/ShiftOver/shiftover-backend/pkg/response"
 	"github.com/labstack/echo/v4"
+	"github.com/pkg/errors"
 )
 
 // GetUser is a handler function to fetch a user by ID
@@ -21,7 +22,7 @@ func (h *httpHandler) GetUser(c echo.Context) error {
 
 	user, err := h.d.Service.GetUser(ctx, userID)
 	if err != nil {
-		return response.ErrResponse(c, http.StatusNotFound, "User not found")
+		return response.ErrResponse(c, http.StatusInternalServerError, errors.Wrap(err, "error - [GetUser]: unable to fetch user").Error())
 	}
 
 	return response.SuccessResponse(c, http.StatusOK, user)
