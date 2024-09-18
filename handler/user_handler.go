@@ -2,6 +2,7 @@ package handler
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
 	"github.com/ShiftOver/shiftover-backend/pkg/response"
@@ -21,7 +22,7 @@ func (h *httpHandler) GetUser(c echo.Context) error {
 
 	user, err := h.d.Service.GetUser(ctx, userID)
 	if err != nil {
-		return response.ErrResponse(c, http.StatusNotFound, "User not found")
+		return response.ErrResponse(c, http.StatusInternalServerError, fmt.Sprintf("error - [handler.GetUser] unable to get user: %v", err))
 	}
 
 	return response.SuccessResponse(c, http.StatusOK, user)

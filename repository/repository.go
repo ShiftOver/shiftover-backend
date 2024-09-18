@@ -16,6 +16,7 @@ type UserRepository interface {
 
 // PatientRepository represents the repository functions for the patients collection
 type PatientRepository interface {
+	Fetch(ctx context.Context, patientID string) (*dto.PatientEntity, error)
 }
 
 // HospitalRepository represents the repository functions for the hospitals collection
@@ -34,6 +35,7 @@ type WardRepository interface {
 
 // RoomRepository represents the repository functions for the rooms collection
 type RoomRepository interface {
+	Fetch(ctx context.Context, roomID string) (*dto.RoomEntity, error)
 }
 
 // CounterRepository represents the repository functions for the counters collection
