@@ -10,7 +10,7 @@ import (
 
 // Port represents the service layer functions
 type Port interface {
-	SignUp(ctx context.Context, req *dto.SignUpReq) (*dto.SignUpRes, error)
+	SignUp(ctx context.Context, req dto.SignUpReq) (*dto.SignUpRes, error)
 	GetUser(ctx context.Context, userID string) (*dto.UserEntity, error)
 	GetHospital(ctx context.Context, hospitalID string) (*dto.HospitalEntity, error)
 	ListHospital(ctx context.Context) ([]*dto.HospitalEntity, error)

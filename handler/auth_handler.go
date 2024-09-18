@@ -27,7 +27,7 @@ func (h *httpHandler) SignUp(c echo.Context) error {
 		return response.ErrResponse(c, http.StatusBadRequest, fmt.Sprintf("error - [handler.SignUp] unable to bind request: %v", err))
 	}
 
-	res, err := h.d.Service.SignUp(ctx, req)
+	res, err := h.d.Service.SignUp(ctx, *req)
 	if err != nil {
 		return response.ErrResponse(c, http.StatusInternalServerError, fmt.Sprintf("error - [handler.SignUp] unable to sign up user: %v", err))
 	}

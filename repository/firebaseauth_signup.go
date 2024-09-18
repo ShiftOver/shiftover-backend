@@ -11,7 +11,7 @@ import (
 )
 
 // SignUp creates a new user in firebase
-func (r *firebaseAuthRepository) SignUp(ctx context.Context, payload *dto.SignUpReq, userID, hospitalID string) error {
+func (r *firebaseAuthRepository) SignUp(ctx context.Context, payload dto.SignUpReq, userID, hospitalID string) error {
 	params := (&auth.UserToCreate{}).
 		UID(userID).
 		Email(payload.Email).

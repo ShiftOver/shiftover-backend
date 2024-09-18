@@ -9,7 +9,7 @@ import (
 
 // UserRepository represents the repository functions for the users collection
 type UserRepository interface {
-	Insert(ctx context.Context, payload *dto.UserEntity) error
+	Insert(ctx context.Context, payload dto.UserEntity) error
 	Fetch(ctx context.Context, userID string) (*dto.UserEntity, error)
 	Exists(ctx context.Context, userID string) bool
 }
@@ -29,7 +29,7 @@ type HospitalRepository interface {
 type WardRepository interface {
 	Fetch(ctx context.Context, wardID string) (*dto.WardEntity, error)
 	Exists(ctx context.Context, wardID string) bool
-	Insert(ctx context.Context, payload *dto.WardEntity) error
+	Insert(ctx context.Context, payload dto.WardEntity) error
 }
 
 // RoomRepository represents the repository functions for the rooms collection
@@ -45,7 +45,7 @@ type CounterRepository interface {
 
 // FirebaseAuthRepository represents the repository functions for the firebase auth
 type FirebaseAuthRepository interface {
-	SignUp(ctx context.Context, payload *dto.SignUpReq, userID, hospitalID string) error
+	SignUp(ctx context.Context, payload dto.SignUpReq, userID, hospitalID string) error
 }
 
 // FirebaseStorageRepository represents the repository functions for the firebase storage
