@@ -27,3 +27,20 @@ func (h *httpHandler) GetRoom(c echo.Context) error {
 
 	return response.SuccessResponse(c, http.StatusOK, room)
 }
+
+// ListRooms is a handler function to fetch all rooms
+// @Summary Fetch all rooms
+// @Description Fetch all rooms from the database
+// @Tags Room
+// @Success 200 {array} dto.GetRoomResponse
+// @Router /v1/room [get]
+func (h *httpHandler) ListRooms(c echo.Context) error {
+	ctx := context.Background()
+
+	rooms, err := h.d.Service.ListRooms(ctx)
+	if err != nil {
+		return response.ErrResponse(c, http.StatusInternalServerError, fmt.Sprintf("error - [handler.ListRooms] unable to list rooms: %v", err))
+	}
+
+	return response.SuccessResponse(c, http.StatusOK, rooms)
+}

@@ -18,6 +18,7 @@ type Port interface {
 
 	// Room Service
 	GetRoom(ctx context.Context, roomID string) (*dto.GetRoomResponse, error)
+	ListRooms(ctx context.Context) ([]*dto.GetRoomResponse, error)
 
 	// Hospital Service
 	GetHospital(ctx context.Context, hospitalID string) (*dto.HospitalEntity, error)

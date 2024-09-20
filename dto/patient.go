@@ -1,5 +1,7 @@
 package dto
 
+import "time"
+
 // Allergy represents the allergy entity
 type Allergy struct {
 	Name string `json:"name" bson:"name"`
@@ -14,6 +16,6 @@ type PatientEntity struct {
 	HN          string    `json:"hn" bson:"hn"`
 	Gender      string    `json:"gender" bson:"gender" validate:"oneof=male female others"`
 	Allergies   []Allergy `json:"allergies" bson:"allergies"`
-	CreatedAt   string    `json:"createdAt" bson:"createdAt"`
-	UpdatedAt   string    `json:"updatedAt" bson:"updatedAt"`
+	CreatedAt   time.Time `json:"createdAt" bson:"createdAt"`
+	UpdatedAt   time.Time `json:"updatedAt" bson:"updatedAt"`
 }

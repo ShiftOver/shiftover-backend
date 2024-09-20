@@ -21,3 +21,18 @@ func (r *roomRepository) Fetch(ctx context.Context, roomID string) (*dto.RoomEnt
 
 	return &entity, nil
 }
+
+// List fetches all rooms in the database
+func (r *roomRepository) List(ctx context.Context) ([]*dto.RoomEntity, error) {
+	cursor, err := r.collection.Find(ctx, bson.D{})
+	if err != nil {
+		return nil, errors.Wrap(err, "error - [roomRepository.List]: unable to list rooms")
+	}
+
+	results := make([]*dto.RoomEntity, 0)
+	if err := cursor.All(ctx, &results); err != nil {
+		return nil, errors.Wrap(err, "error - [roomRepository.List]: unable to decode result")
+	}
+
+	return results, nil
+}
