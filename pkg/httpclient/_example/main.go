@@ -4,7 +4,7 @@ package main
 import (
 	"log"
 
-	"github.com/win-ts/go-monorepo-microservice-template/pkg/httpclient"
+	"github.com/ShiftOver/shiftover-backend/pkg/httpclient"
 )
 
 func main() {
