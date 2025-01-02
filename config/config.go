@@ -93,12 +93,12 @@ func requiredEnv(env string) string {
 }
 
 func decodeBase64Field(fields ...*string) {
-    for _, field := range fields {
-        if field != nil {
-            decoded, err := base64.StdEncoding.DecodeString(*field)
-            if err == nil {
-                *field = string(decoded)
-            }
-        }
-    }
+	for _, field := range fields {
+		if field != nil {
+			decoded, err := base64.StdEncoding.DecodeString(*field)
+			if err == nil {
+				*field = string(decoded)
+			}
+		}
+	}
 }
