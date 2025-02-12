@@ -22,6 +22,7 @@ type PatientRepository interface {
 type HospitalRepository interface {
 	Fetch(ctx context.Context, hospitalID string) (*dto.HospitalEntity, error)
 	Exists(ctx context.Context, hospitalID string) bool
+	ExistsByName(ctx context.Context, hospitalName string) bool
 	List(ctx context.Context) ([]*dto.HospitalEntity, error)
 	Insert(ctx context.Context, payload *dto.HospitalEntity) error
 }
@@ -42,6 +43,9 @@ type CounterRepository interface {
 	GetCurrentUserIDCount(ctx context.Context) (int, error)
 	IncrementUserIDCount(ctx context.Context) error
 	DecrementUserIDCount(ctx context.Context) error
+	GetCurrentHospitalIDCount(ctx context.Context) (int, error)
+	IncrementHospitalIDCount(ctx context.Context) error
+	DecrementHospitalIDCount(ctx context.Context) error
 }
 
 // FirebaseAuthRepository represents the repository functions for the firebase auth

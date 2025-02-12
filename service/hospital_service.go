@@ -2,6 +2,8 @@ package service
 
 import (
 	"context"
+	"fmt"
+	"time"
 
 	"github.com/ShiftOver/shiftover-backend/dto"
 	"github.com/pkg/errors"
@@ -25,11 +27,33 @@ func (s *service) ListHospital(ctx context.Context) ([]*dto.HospitalEntity, erro
 	return hospitals, nil
 }
 
-// InsertHospital inserts a new hospital into the database
-func (s *service) InsertHospital(ctx context.Context, payload *dto.HospitalEntity) error {
-	err := s.hospitalRepository.Insert(ctx, payload)
+func (s *service) InsertHospital(ctx context.Context, hospital *dto.HospitalEntity) error {
+	// Check if the hospital name already exists
+	if s.hospitalRepository.ExistsByName(ctx, hospital.HospitalName) {
+		return errors.New("error - [service.InsertHospital]: hospital name already exists")
+	}
+	// Fetch the next hospital ID from the counter repository
+	hospitalID, err := s.counterRepository.GetCurrentHospitalIDCount(ctx)
+	if err != nil {
+		return errors.Wrap(err, "error - [service.InsertHospital]: unable to fetch current hospital ID count")
+	}
+
+	// Increment the hospital ID counter
+	err = s.counterRepository.IncrementHospitalIDCount(ctx)
+	if err != nil {
+		return errors.Wrap(err, "error - [service.InsertHospital]: unable to increment hospital ID count")
+	}
+
+	// Set the hospital ID
+	hospital.HospitalID = fmt.Sprintf("HOSPITAL-%d", hospitalID)
+
+	hospital.CreatedAt = time.Now()
+
+	// Insert the hospital into the database
+	err = s.hospitalRepository.Insert(ctx, hospital)
 	if err != nil {
 		return errors.Wrap(err, "error - [service.InsertHospital]: unable to insert hospital")
 	}
+
 	return nil
 }
