@@ -39,6 +39,18 @@ func main() {
 		PatientRepositoryConfig: repository.PatientRepositoryConfig{
 			CollectionName: os.Getenv("MONGO_COLLECTION_PATIENT"),
 		},
+		PatientAssessmentRepositoryConfig: repository.PatientAssessmentRepositoryConfig{
+			CollectionName: os.Getenv("MONGO_COLLECTION_PATIENT_ASSESSMENT"),
+		},
+		NurseMonitoringRepositoryConfig: repository.NurseMonitoringRepositoryConfig{
+			CollectionName: os.Getenv("MONGO_COLLECTION_NURSE_MONITORING"),
+		},
+		MedicationRepositoryConfig: repository.MedicationRepositoryConfig{
+			CollectionName: os.Getenv("MONGO_COLLECTION_MEDICATION"),
+		},
+		NursingRepositoryConfig: repository.NursingRepositoryConfig{
+			CollectionName: os.Getenv("MONGO_COLLECTION_NURSING"),
+		},
 		HospitalRepositoryConfig: repository.HospitalRepositoryConfig{
 			CollectionName: os.Getenv("MONGO_COLLECTION_HOSPITAL"),
 		},

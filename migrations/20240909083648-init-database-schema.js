@@ -530,7 +530,7 @@ module.exports = {
     });
 
     // nurse_monitoring collection
-    await db.createCollection('nurse_monitoring', {
+    await db.createCollection('nurse_monitorings', {
       validator: {
         $jsonSchema: {
           bsonType: "object",
@@ -665,8 +665,105 @@ module.exports = {
       }
     });
 
+    // medications collection
+    await db.createCollection('medications', {
+      validator: {
+        $jsonSchema: {
+          bsonType: "object",
+          required: ["patientId", "createdAt", "updatedAt"],
+          properties: {
+            patientId: { bsonType: "string" },
+            injection: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  medication: { bsonType: "string" },
+                  dose: { bsonType: "string" },
+                  route: { bsonType: "string" },
+                  frequency: { bsonType: "date" }
+                }
+              }
+            },
+            intravenous: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  medication: { bsonType: "string" },
+                  dose: { bsonType: "string" },
+                  route: { bsonType: "string" },
+                  frequency: { bsonType: "date" }
+                }
+              }
+            },
+            oral: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  medication: { bsonType: "string" },
+                  dose: { bsonType: "string" },
+                  frequency: { bsonType: "date" }
+                }
+              }
+            },
+            tropical: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  medication: { bsonType: "string" },
+                  dose: { bsonType: "string" },
+                  route: { bsonType: "string" },
+                  frequency: { bsonType: "date" }
+                }
+              }
+            },
+            drop: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  medication: { bsonType: "string" },
+                  dose: { bsonType: "string" },
+                  route: { bsonType: "string" },
+                  frequency: { bsonType: "date" }
+                }
+              }
+            },
+            implant: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  medication: { bsonType: "string" },
+                  dose: { bsonType: "string" },
+                  route: { bsonType: "string" },
+                  frequency: { bsonType: "date" }
+                }
+              }
+            },
+            suppositories: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  medication: { bsonType: "string" },
+                  dose: { bsonType: "string" },
+                  frequency: { bsonType: "date" }
+                }
+              }
+            },
+            createdAt: { bsonType: "date" },
+            updatedAt: { bsonType: "date" }
+          }
+        }
+      }
+    });
+
     // nursing collection
-    await db.createCollection('nursing', {
+    await db.createCollection('nursings', {
       validator: {
         $jsonSchema: {
           bsonType: "object",
@@ -1005,8 +1102,9 @@ module.exports = {
     await db.collection('users').drop();
     await db.collection('patients').drop();
     await db.collection('patients_assessments').drop();
-    await db.collection('nurse_monitoring').drop();
-    await db.collection('nursing').drop();
+    await db.collection('nurse_monitorings').drop();
+    await db.collection('medications').drop();
+    await db.collection('nursings').drop();
     await db.collection('hospitals').drop();
     await db.collection('wards').drop();
     await db.collection('rooms').drop();

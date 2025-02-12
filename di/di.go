@@ -16,15 +16,32 @@ import (
 
 // Config represents the configuration of the service
 type Config struct {
-	AppConfig                config.AppConfig
-	MongoConfig              config.MongoConfig
-	FirebaseConfig           config.FirebaseConfig
-	UserRepositoryConfig     repository.UserRepositoryConfig
-	PatientRepositoryConfig  repository.PatientRepositoryConfig
-	HospitalRepositoryConfig repository.HospitalRepositoryConfig
-	WardRepositoryConfig     repository.WardRepositoryConfig
-	RoomRepositoryConfig     repository.RoomRepositoryConfig
-	CounterRepositoryConfig  repository.CounterRepositoryConfig
+	AppConfig                         config.AppConfig
+	MongoConfig                       config.MongoConfig
+	FirebaseConfig                    config.FirebaseConfig
+	UserRepositoryConfig              repository.UserRepositoryConfig
+	PatientRepositoryConfig           repository.PatientRepositoryConfig
+	PatientAssessmentRepositoryConfig repository.PatientAssessmentRepositoryConfig
+	NurseMonitoringRepositoryConfig   repository.NurseMonitoringRepositoryConfig
+	MedicationRepositoryConfig        repository.MedicationRepositoryConfig
+	NursingRepositoryConfig           repository.NursingRepositoryConfig
+	HospitalRepositoryConfig          repository.HospitalRepositoryConfig
+	WardRepositoryConfig              repository.WardRepositoryConfig
+	RoomRepositoryConfig              repository.RoomRepositoryConfig
+	CounterRepositoryConfig           repository.CounterRepositoryConfig
+}
+
+type mongoRepositories struct {
+	userRepository              repository.UserRepository
+	patientRepository           repository.PatientRepository
+	patientAssessmentRepository repository.PatientAssessmentRepository
+	nurseMonitoringRepository   repository.NurseMonitoringRepository
+	medicationRepository        repository.MedicationRepository
+	nursingRepository           repository.NursingRepository
+	hospitalRepository          repository.HospitalRepository
+	wardRepository              repository.WardRepository
+	roomRepository              repository.RoomRepository
+	counterRepository           repository.CounterRepository
 }
 
 // New injects the dependencies for the server
@@ -39,17 +56,17 @@ func New(c Config) {
 		log.Panicf("error - [di.setupFirebase] unable to initialize Firebase client: %v", err)
 	}
 
-	userRepo, patientRepo, hospitalRepo, wardRepo, roomRepo, counterRepo := newMongoRepositories(ctx, c)
+	mongoRepos := newMongoRepositories(ctx, c)
 
 	service := service.New(service.Dependencies{
-		UserRepository:     userRepo,
-		PatientRepository:  patientRepo,
-		HospitalRepository: hospitalRepo,
-		WardRepository:     wardRepo,
-		RoomRepository:     roomRepo,
+		UserRepository:     mongoRepos.userRepository,
+		PatientRepository:  mongoRepos.patientRepository,
+		HospitalRepository: mongoRepos.hospitalRepository,
+		WardRepository:     mongoRepos.wardRepository,
+		RoomRepository:     mongoRepos.roomRepository,
 		AuthRepository:     authRepo,
 		StorageRepository:  storageRepo,
-		CounterRepository:  counterRepo,
+		CounterRepository:  mongoRepos.counterRepository,
 	})
 
 	handler.New(e, handler.Dependencies{

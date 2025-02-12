@@ -14,7 +14,7 @@ import (
 	"github.com/ShiftOver/shiftover-backend/repository"
 )
 
-func newMongoRepositories(pctx context.Context, c Config) (repository.UserRepository, repository.PatientRepository, repository.HospitalRepository, repository.WardRepository, repository.RoomRepository, repository.CounterRepository) {
+func newMongoRepositories(pctx context.Context, c Config) *mongoRepositories {
 	ctx, cancel := context.WithTimeout(pctx, 10*time.Second)
 	defer cancel()
 
@@ -37,6 +37,18 @@ func newMongoRepositories(pctx context.Context, c Config) (repository.UserReposi
 	patientColl := client.Database(c.MongoConfig.DBName).Collection(c.PatientRepositoryConfig.CollectionName)
 	patientRepo := repository.NewPatientRepository(*patientColl)
 
+	patientAssessmentColl := client.Database(c.MongoConfig.DBName).Collection(c.PatientAssessmentRepositoryConfig.CollectionName)
+	patientAssessmentRepo := repository.NewPatientAssessmentRepository(*patientAssessmentColl)
+
+	nurseMonitoringColl := client.Database(c.MongoConfig.DBName).Collection(c.NurseMonitoringRepositoryConfig.CollectionName)
+	nurseMonitoringRepo := repository.NewNurseMonitoringRepository(*nurseMonitoringColl)
+
+	medicationColl := client.Database(c.MongoConfig.DBName).Collection(c.MedicationRepositoryConfig.CollectionName)
+	medicationRepo := repository.NewMedicationRepository(*medicationColl)
+
+	nursingColl := client.Database(c.MongoConfig.DBName).Collection(c.NursingRepositoryConfig.CollectionName)
+	nursingRepo := repository.NewNursingRepository(*nursingColl)
+
 	hospitalColl := client.Database(c.MongoConfig.DBName).Collection(c.HospitalRepositoryConfig.CollectionName)
 	hospitalRepo := repository.NewHospitalRepository(*hospitalColl)
 
@@ -49,5 +61,16 @@ func newMongoRepositories(pctx context.Context, c Config) (repository.UserReposi
 	counterColl := client.Database(c.MongoConfig.DBName).Collection(c.CounterRepositoryConfig.CollectionName)
 	counterRepo := repository.NewCounterRepository(*counterColl)
 
-	return userRepo, patientRepo, hospitalRepo, wardRepo, roomRepo, counterRepo
+	return &mongoRepositories{
+		userRepository:              userRepo,
+		patientRepository:           patientRepo,
+		patientAssessmentRepository: patientAssessmentRepo,
+		nurseMonitoringRepository:   nurseMonitoringRepo,
+		medicationRepository:        medicationRepo,
+		nursingRepository:           nursingRepo,
+		hospitalRepository:          hospitalRepo,
+		wardRepository:              wardRepo,
+		roomRepository:              roomRepo,
+		counterRepository:           counterRepo,
+	}
 }
