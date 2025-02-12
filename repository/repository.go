@@ -20,6 +20,22 @@ type PatientRepository interface {
 	Insert(ctx context.Context, entity dto.PatientEntity) error
 }
 
+// PatientAssessmentRepository represents the repository functions for the patient assessments collection
+type PatientAssessmentRepository interface {
+}
+
+// NurseMonitoringRepository represents the repository functions for the nurse monitoring collection
+type NurseMonitoringRepository interface {
+}
+
+// MedicationRepository represents the repository functions for the medications collection
+type MedicationRepository interface {
+}
+
+// NursingRepository represents the repository functions for the nursing collection
+type NursingRepository interface {
+}
+
 // HospitalRepository represents the repository functions for the hospitals collection
 type HospitalRepository interface {
 	Fetch(ctx context.Context, hospitalID string) (*dto.HospitalEntity, error)

@@ -530,7 +530,7 @@ module.exports = {
     });
 
     // nurse_monitoring collection
-    await db.createCollection('nurse_monitoring', {
+    await db.createCollection('nurse_monitorings', {
       validator: {
         $jsonSchema: {
           bsonType: "object",
@@ -763,7 +763,7 @@ module.exports = {
     });
 
     // nursing collection
-    await db.createCollection('nursing', {
+    await db.createCollection('nursings', {
       validator: {
         $jsonSchema: {
           bsonType: "object",
@@ -1102,9 +1102,9 @@ module.exports = {
     await db.collection('users').drop();
     await db.collection('patients').drop();
     await db.collection('patients_assessments').drop();
-    await db.collection('nurse_monitoring').drop();
+    await db.collection('nurse_monitorings').drop();
     await db.collection('medications').drop();
-    await db.collection('nursing').drop();
+    await db.collection('nursings').drop();
     await db.collection('hospitals').drop();
     await db.collection('wards').drop();
     await db.collection('rooms').drop();
