@@ -10,7 +10,7 @@ import (
 	"github.com/pkg/errors"
 )
 
-func (s *service) SignUp(ctx context.Context, req *dto.SignUpReq) (*dto.SignUpRes, error) {
+func (s *service) SignUp(ctx context.Context, req dto.SignUpReq) (*dto.SignUpRes, error) {
 	newUserID, err := s.counterRepository.GetCurrentUserIDCount(ctx)
 	if err != nil {
 		return nil, errors.Wrap(err, "error - [service.SignUp]: unable to get current userId count")
@@ -38,7 +38,7 @@ func (s *service) SignUp(ctx context.Context, req *dto.SignUpReq) (*dto.SignUpRe
 		return nil, errors.Wrap(err, "error - [service.SignUp]: unable to sign up user")
 	}
 
-	err = s.userRepository.Insert(ctx, &dto.UserEntity{
+	err = s.userRepository.Insert(ctx, dto.UserEntity{
 		UserID:            userID,
 		NurseID:           req.NurseID,
 		FirstName:         req.FirstName,

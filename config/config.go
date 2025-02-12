@@ -2,6 +2,7 @@
 package config
 
 import (
+	"encoding/base64"
 	"os"
 
 	"github.com/joho/godotenv"
@@ -53,7 +54,7 @@ func LoadConfig(env string) (Config, error) {
 		}
 	}
 
-	return Config{
+	config := Config{
 		AppConfig: AppConfig{
 			Name:     requiredEnv("APP_NAME"),
 			Port:     requiredEnv("APP_PORT"),
@@ -77,7 +78,10 @@ func LoadConfig(env string) (Config, error) {
 			CredentialsJSON:       os.Getenv("FIREBASE_CREDENTIALS_JSON"),
 			UserProfileObjectPath: os.Getenv("FIREBASE_USER_PROFILE_OBJECT_PATH"),
 		},
-	}, nil
+	}
+
+	decodeBase64Field(&config.FirebaseConfig.CredentialsJSON)
+	return config, nil
 }
 
 func requiredEnv(env string) string {
@@ -86,4 +90,15 @@ func requiredEnv(env string) string {
 		log.Panic("missing required environment variable: " + env)
 	}
 	return val
+}
+
+func decodeBase64Field(fields ...*string) {
+	for _, field := range fields {
+		if field != nil {
+			decoded, err := base64.StdEncoding.DecodeString(*field)
+			if err == nil {
+				*field = string(decoded)
+			}
+		}
+	}
 }

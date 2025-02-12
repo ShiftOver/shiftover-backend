@@ -34,6 +34,7 @@ func setupServer(pctx context.Context, e *echo.Echo, c Config) {
 	quit := make(chan os.Signal, 1)
 	signal.Notify(quit, syscall.SIGINT, syscall.SIGTERM)
 	e.Use(middleware.Logger())
+	e.Use(middleware.Recover())
 	go gracefulShutdown(pctx, e, c, quit)
 }
 
