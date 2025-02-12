@@ -177,6 +177,7 @@ module.exports = {
       },
     });
 
+    // patient_assessments collection
     await db.createCollection('patient_assessments', {
       validator: {
         $jsonSchema: {
@@ -517,6 +518,419 @@ module.exports = {
                     rnAssessment: { bsonType: "string" },
                     date: { bsonType: "string" },
                     time: { bsonType: "string" }
+                  }
+                }
+              }
+            },
+            createdAt: { bsonType: "date" },
+            updatedAt: { bsonType: "date" }
+          }
+        }
+      }
+    });
+
+    // nurse_monitoring collection
+    await db.createCollection('nurse_monitoring', {
+      validator: {
+        $jsonSchema: {
+          bsonType: "object",
+          required: ["patientId", "createdAt", "updatedAt"],
+          properties: {
+            patientId: { bsonType: "string" },
+            heartRate: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  value: { bsonType: "int" },
+                  recordedAt: { bsonType: "date" }
+                }
+              }
+            },
+            fetalHeartRate: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  value: { bsonType: "int" },
+                  recordedAt: { bsonType: "date" }
+                }
+              }
+            },
+            bloodPressure: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  systol: { bsonType: "int" },
+                  diastol: { bsonType: "int" },
+                  recordedAt: { bsonType: "date" }
+                }
+              }
+            },
+            respiration: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  value: { bsonType: "int" },
+                  recordedAt: { bsonType: "date" }
+                }
+              }
+            },
+            oxygenSaturation: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  value: { bsonType: "int" },
+                  recordedAt: { bsonType: "date" }
+                }
+              }
+            },
+            temperature: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  value: { bsonType: "double" },
+                  recordedAt: { bsonType: "date" }
+                }
+              }
+            },
+            painScale: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  value: { bsonType: "int" },
+                  recordedAt: { bsonType: "date" }
+                }
+              }
+            },
+            neurological: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  levelOfConsciousness: { bsonType: "string" },
+                  sendationScore: { bsonType: "int" },
+                  pupilSize: { bsonType: "int" },
+                  pupilReaction: { bsonType: "string" },
+                  recordedAt: { bsonType: "date" }
+                }
+              }
+            },
+            fluidIntakeOutput: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  shiftID: { bsonType: "string" },
+                  startDateTime: { bsonType: "date" },
+                  endDateTime: { bsonType: ["date", "null"] },
+                  method: { bsonType: "string" },
+                  site: { bsonType: "string" },
+                  shift: {
+                    bsonType: "object",
+                    properties: {
+                      rows: {
+                        bsonType: "array",
+                        items: {
+                          bsonType: "object",
+                          properties: {
+                            time: { bsonType: "string" },
+                            typeOfFluid: { bsonType: "string" },
+                            additionsPerBag: { bsonType: "string" },
+                            putUp: { bsonType: "int" },
+                            goneIn: { bsonType: "int" },
+                            urine: { bsonType: "int" },
+                            ngAspirate: { bsonType: "int" },
+                            drains: { bsonType: "int" },
+                            stool: { bsonType: "string" }
+                          }
+                        }
+                      },
+                      endOfShiftTime: { bsonType: "string" },
+                      remainder: { bsonType: "int" }
+                    }
+                  }
+                }
+              }
+            },
+            createdAt: { bsonType: "date" },
+            updatedAt: { bsonType: "date" }
+          }
+        }
+      }
+    });
+
+    // nursing collection
+    await db.createCollection('nursing', {
+      validator: {
+        $jsonSchema: {
+          bsonType: "object",
+          required: [
+            "patientId",
+            "activityFlowSheet",
+            "focusNote",
+            "focusList",
+            "dischargeSummaryForm",
+            "createdAt",
+            "updatedAt"
+          ],
+          properties: {
+            patientId: { bsonType: "string" },
+            activityFlowSheet: {
+              bsonType: "object",
+              required: [
+                "specialCare",
+                "hygiene",
+                "activity",
+                "psychosocialSupport",
+                "elimination",
+                "safety"
+              ],
+              properties: {
+                specialCare: {
+                  bsonType: "object",
+                  required: [
+                    "ivfIVCathCare",
+                    "drainCare",
+                    "woundCare",
+                    "painCare",
+                    "breathingExercise",
+                    "turnPosition",
+                    "other"
+                  ],
+                  properties: {
+                    ivfIVCathCare: { bsonType: "string" },
+                    drainCare: { bsonType: "string" },
+                    woundCare: { bsonType: "string" },
+                    painCare: { bsonType: "string" },
+                    breathingExercise: { bsonType: "string" },
+                    turnPosition: { bsonType: "string" },
+                    other: { bsonType: "string" }
+                  }
+                },
+                hygiene: {
+                  bsonType: "object",
+                  required: [
+                    "bath",
+                    "mouthCare",
+                    "shampooing",
+                    "perinealCare",
+                    "linenChange",
+                    "other"
+                  ],
+                  properties: {
+                    bath: { bsonType: "string" },
+                    mouthCare: { bsonType: "string" },
+                    shampooing: { bsonType: "string" },
+                    perinealCare: { bsonType: "string" },
+                    linenChange: { bsonType: "string" },
+                    other: { bsonType: "string" }
+                  }
+                },
+                activity: {
+                  bsonType: "object",
+                  required: [
+                    "ambulate",
+                    "exercise",
+                    "rest",
+                    "bedRest",
+                    "absoluteBedRest"
+                  ],
+                  properties: {
+                    ambulate: { bsonType: "string" },
+                    exercise: { bsonType: "string" },
+                    rest: { bsonType: "string" },
+                    bedRest: { bsonType: "string" },
+                    absoluteBedRest: { bsonType: "string" }
+                  }
+                },
+                psychosocialSupport: {
+                  bsonType: "object",
+                  required: [
+                    "greeting",
+                    "touch:",
+                    "information",
+                    "other"
+                  ],
+                  properties: {
+                    greeting: { bsonType: "string" },
+                    // Note: The property name "touch:" includes a colon.
+                    "touch:": { bsonType: "string" },
+                    information: { bsonType: "string" },
+                    other: { bsonType: "string" }
+                  }
+                },
+                elimination: {
+                  bsonType: "object",
+                  required: [
+                    "condomCare",
+                    "cathCare",
+                    "ostomyCare",
+                    "enema"
+                  ],
+                  properties: {
+                    condomCare: { bsonType: "string" },
+                    cathCare: { bsonType: "string" },
+                    ostomyCare: { bsonType: "string" },
+                    enema: { bsonType: "string" }
+                  }
+                },
+                safety: {
+                  bsonType: "object",
+                  required: [
+                    "sideRailUp",
+                    "restraint",
+                    "other"
+                  ],
+                  properties: {
+                    sideRailUp: { bsonType: "string" },
+                    restraint: { bsonType: "string" },
+                    other: { bsonType: "string" }
+                  }
+                }
+              }
+            },
+            focusNote: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                required: [
+                  "timeOrShift",
+                  "focus",
+                  "progressNote",
+                  "createdAt",
+                  "updatedAt"
+                ],
+                properties: {
+                  timeOrShift: { bsonType: "string" },
+                  focus: { bsonType: "string" },
+                  progressNote: { bsonType: "string" },
+                  createdAt: { bsonType: "date" },
+                  updatedAt: { bsonType: "date" }
+                }
+              }
+            },
+            focusList: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                required: [
+                  "no",
+                  "focus",
+                  "goal",
+                  "active",
+                  "resolved"
+                ],
+                properties: {
+                  no: { bsonType: "string" },
+                  focus: { bsonType: "string" },
+                  goal: { bsonType: "string" },
+                  active: { bsonType: "string" },
+                  resolved: { bsonType: "string" }
+                }
+              }
+            },
+            dischargeSummaryForm: {
+              bsonType: "object",
+              required: [
+                "doctor",
+                "diagnosis",
+                "treatment",
+                "status",
+                "continuingHealthProblems",
+                "healthInformations",
+                "dischargedBy",
+                "dischargedWith",
+                "caseOfDeath"
+              ],
+              properties: {
+                doctor: { bsonType: "string" },
+                diagnosis: { bsonType: "string" },
+                treatment: { bsonType: "string" },
+                status: {
+                  bsonType: "object",
+                  required: [
+                    "vitalSigns",
+                    "levelOfConciousness",
+                    "therapeuticDevice"
+                  ],
+                  properties: {
+                    vitalSigns: {
+                      bsonType: "object",
+                      required: [
+                        "temperature",
+                        "heartRate",
+                        "respiratoryRate",
+                        "bloodPressure"
+                      ],
+                      properties: {
+                        temperature: { bsonType: "double" },
+                        heartRate: { bsonType: "int" },
+                        respiratoryRate: { bsonType: "int" },
+                        bloodPressure: {
+                          bsonType: "object",
+                          required: ["systol", "diastol"],
+                          properties: {
+                            systol: { bsonType: "int" },
+                            diastol: { bsonType: "int" }
+                          }
+                        }
+                      }
+                    },
+                    levelOfConciousness: { bsonType: "string" },
+                    therapeuticDevice: { bsonType: "string" }
+                  }
+                },
+                continuingHealthProblems: { bsonType: "string" },
+                healthInformations: {
+                  bsonType: "object",
+                  required: [
+                    "selected",
+                    "additionalInfo",
+                    "providedTo"
+                  ],
+                  properties: {
+                    selected: { bsonType: "string" },
+                    additionalInfo: { bsonType: "string" },
+                    providedTo: { bsonType: "string" }
+                  }
+                },
+                dischargedBy: { bsonType: "string" },
+                dischargedWith: { bsonType: "string" },
+                caseOfDeath: {
+                  bsonType: "object",
+                  required: [
+                    "dateOfDeath",
+                    "timeOfDeath",
+                    "doctor",
+                    "transferTo",
+                    "propertySentTo",
+                    "dischargeRN"
+                  ],
+                  properties: {
+                    dateOfDeath: { bsonType: "string" },
+                    timeOfDeath: { bsonType: "string" },
+                    doctor: { bsonType: "string" },
+                    transferTo: { bsonType: "string" },
+                    propertySentTo: {
+                      bsonType: "object",
+                      required: [
+                        "selected",
+                        "signature",
+                        "idNo"
+                      ],
+                      properties: {
+                        selected: { bsonType: "string" },
+                        signature: { bsonType: "string" },
+                        idNo: { bsonType: "string" }
+                      }
+                    },
+                    dischargeRN: { bsonType: "string" }
                   }
                 }
               }
