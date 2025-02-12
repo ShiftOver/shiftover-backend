@@ -1,0 +1,6 @@
+POST http://localhost:8080/v1/hospital
+Content-Type: application/json
+{
+    "hospitalName": "h1",
+    "hospitalAbbreviation": "h1"
+}

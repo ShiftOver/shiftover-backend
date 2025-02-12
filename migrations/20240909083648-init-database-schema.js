@@ -1004,6 +1004,9 @@ module.exports = {
   async down(db, client) {
     await db.collection('users').drop();
     await db.collection('patients').drop();
+    await db.collection('patients_assessments').drop();
+    await db.collection('nurse_monitoring').drop();
+    await db.collection('nursing').drop();
     await db.collection('hospitals').drop();
     await db.collection('wards').drop();
     await db.collection('rooms').drop();
