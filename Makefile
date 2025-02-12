@@ -1,3 +1,6 @@
+include .env
+include .env.secrets
+
 prepare:
 	@echo "Preparing required libraries..."
 	brew install pre-commit
@@ -22,6 +25,10 @@ rehooks:
 	pre-commit install -t pre-push
 	pre-commit install -t commit-msg
 
+run:
+	@echo "Running application..."
+	go run .
+
 dev.up:
 	@echo "Starting local development..."
 	docker compose -f docker-compose.dev.yaml up
@@ -42,4 +49,4 @@ migrate.down:
 	@echo "Rolling back migrations..."
 	migrate-mongo down
 
-.PHONY: prepare rehooks dev.up dev.down swagger migrate.up migrate.down
+.PHONY: prepare rehooks run dev.up dev.down swagger migrate.up migrate.down
