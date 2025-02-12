@@ -24,3 +24,12 @@ func (s *service) ListHospital(ctx context.Context) ([]*dto.HospitalEntity, erro
 	}
 	return hospitals, nil
 }
+
+// InsertHospital inserts a new hospital into the database
+func (s *service) InsertHospital(ctx context.Context, payload *dto.HospitalEntity) error {
+	err := s.hospitalRepository.Insert(ctx, payload)
+	if err != nil {
+		return errors.Wrap(err, "error - [service.InsertHospital]: unable to insert hospital")
+	}
+	return nil
+}
