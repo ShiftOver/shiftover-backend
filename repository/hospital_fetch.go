@@ -34,6 +34,18 @@ func (r *hospitalRepository) Exists(ctx context.Context, hospitalID string) bool
 	return true
 }
 
+// Exists checks if a hospital exists by their HospitalName
+func (r *hospitalRepository) ExistsByName(ctx context.Context, hospitalName string) bool {
+	hospital := r.collection.FindOne(ctx, bson.D{primitive.E{Key: "hospitalName", Value: hospitalName}})
+
+	var entity dto.HospitalEntity
+	if err := hospital.Decode(&entity); err != nil {
+		return false
+	}
+
+	return true
+}
+
 // List fetches all hospitals in the database
 func (r *hospitalRepository) List(ctx context.Context) ([]*dto.HospitalEntity, error) {
 	cursor, err := r.collection.Find(ctx, bson.D{})
