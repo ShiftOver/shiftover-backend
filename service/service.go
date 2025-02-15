@@ -16,9 +16,13 @@ type Port interface {
 	// User Service
 	GetUser(ctx context.Context, userID string) (*dto.UserEntity, error)
 
-	// Patient Assessment Service
-	GetPatientAssessment(ctx context.Context, patientID string) (*dto.PatientAssessmentEntity, error)
+	// Patient Service
+	GetPatient(ctx context.Context, patientID string) (*dto.PatientEntity, error)
+	InsertPatient(ctx context.Context, patient dto.PatientEntity) error
 
+  // Patient Assessment Service
+	GetPatientAssessment(ctx context.Context, patientID string) (*dto.PatientAssessmentEntity, error)
+  
 	// Room Service
 	GetRoom(ctx context.Context, roomID string) (*dto.GetRoomResponse, error)
 	ListRooms(ctx context.Context) ([]*dto.GetRoomResponse, error)

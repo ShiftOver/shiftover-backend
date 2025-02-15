@@ -9,7 +9,7 @@ import (
 	"github.com/ShiftOver/shiftover-backend/dto"
 )
 
-// GetCurrentUserIDCount fetches the current Hospital id count
+// GetCurrentHospitalIDCount fetches the current Hospital id count
 func (r *counterRepository) GetCurrentHospitalIDCount(ctx context.Context) (int, error) {
 	result := r.collection.FindOne(ctx, bson.D{
 		{Key: "_id", Value: "hospitalId"},
@@ -23,7 +23,7 @@ func (r *counterRepository) GetCurrentHospitalIDCount(ctx context.Context) (int,
 	return entity.SequenceValue, nil
 }
 
-// IncrementUserIDCount increments the user id count
+// IncrementHospitalIDCount increments the hospital id count
 func (r *counterRepository) IncrementHospitalIDCount(ctx context.Context) error {
 	_, err := r.collection.UpdateOne(ctx, bson.D{
 		{Key: "_id", Value: "hospitalId"},
@@ -39,7 +39,7 @@ func (r *counterRepository) IncrementHospitalIDCount(ctx context.Context) error 
 	return nil
 }
 
-// DecrementUserIDCount decrements the user id count
+// DecrementHospitalIDCount decrements the hospital id count
 func (r *counterRepository) DecrementHospitalIDCount(ctx context.Context) error {
 	_, err := r.collection.UpdateOne(ctx, bson.D{
 		{Key: "_id", Value: "hospitalId"},
