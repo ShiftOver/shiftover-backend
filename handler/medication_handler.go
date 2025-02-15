@@ -11,6 +11,25 @@ import (
 	"github.com/labstack/echo/v4"
 )
 
+// GetMedication is a handler function to fetch a medication by patientID
+// @Summary Fetch a medication by patientID
+// @Description Fetch a medication from the database by patientID
+// @Tags Medication
+// @Param id path string true "Patient ID"
+// @Success 200 {object} dto.MedicationEntity
+// @Router /v1/medication/{id} [get]
+func (h *httpHandler) GetMedication(c echo.Context) error {
+	ctx := context.Background()
+	medicationID := c.Param("id")
+
+	medication, err := h.d.Service.GetMedication(ctx, medicationID)
+	if err != nil {
+		return response.ErrResponse(c, http.StatusInternalServerError, fmt.Sprintf("error - [GetMedication]: unable to fetch medication: %v", err))
+	}
+
+	return response.SuccessResponse(c, http.StatusOK, medication)
+}
+
 // InsertMedication is a handler function to insert a new medication
 // @Summary Insert a new medication
 // @Description Insert a new medication into the database

@@ -8,6 +8,15 @@ import (
 	"github.com/pkg/errors"
 )
 
+// GetMedication fetches a medication by patientID
+func (s *service) GetMedication(ctx context.Context, patientID string) (*dto.MedicationEntity, error) {
+	medication, err := s.medicationRepository.Fetch(ctx, patientID)
+	if err != nil {
+		return nil, errors.Wrap(err, "error - [medicationService.GetMedication]: unable to fetch medication")
+	}
+	return medication, nil
+}
+
 func (s *service) InsertMedication(ctx context.Context, medication dto.MedicationEntity) error {
 	// Set the CreatedAt and UpdatedAt fields to the current time
 	timeNow := time.Now()
