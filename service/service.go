@@ -20,9 +20,9 @@ type Port interface {
 	GetPatient(ctx context.Context, patientID string) (*dto.PatientEntity, error)
 	InsertPatient(ctx context.Context, patient dto.PatientEntity) error
 
-  // Patient Assessment Service
+	// Patient Assessment Service
 	GetPatientAssessment(ctx context.Context, patientID string) (*dto.PatientAssessmentEntity, error)
-  
+
 	// Room Service
 	GetRoom(ctx context.Context, roomID string) (*dto.GetRoomResponse, error)
 	ListRooms(ctx context.Context) ([]*dto.GetRoomResponse, error)
@@ -31,6 +31,10 @@ type Port interface {
 	GetHospital(ctx context.Context, hospitalID string) (*dto.HospitalEntity, error)
 	ListHospital(ctx context.Context) ([]*dto.HospitalEntity, error)
 	InsertHospital(ctx context.Context, payload *dto.HospitalEntity) error
+
+	// Medication Service
+	InsertMedication(ctx context.Context, medication dto.MedicationEntity) error
+	UpsertMedication(ctx context.Context, filter map[string]interface{}, update dto.MedicationEntity) error
 }
 
 type service struct {
