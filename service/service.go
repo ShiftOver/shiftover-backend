@@ -20,6 +20,9 @@ type Port interface {
 	GetPatient(ctx context.Context, patientID string) (*dto.PatientEntity, error)
 	InsertPatient(ctx context.Context, patient dto.PatientEntity) error
 
+  // Patient Assessment Service
+	GetPatientAssessment(ctx context.Context, patientID string) (*dto.PatientAssessmentEntity, error)
+  
 	// Room Service
 	GetRoom(ctx context.Context, roomID string) (*dto.GetRoomResponse, error)
 	ListRooms(ctx context.Context) ([]*dto.GetRoomResponse, error)
