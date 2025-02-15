@@ -67,6 +67,9 @@ type CounterRepository interface {
 	GetCurrentHospitalIDCount(ctx context.Context) (int, error)
 	IncrementHospitalIDCount(ctx context.Context) error
 	DecrementHospitalIDCount(ctx context.Context) error
+	GetCurrentPatientIDCount(ctx context.Context) (int, error)
+	IncrementPatientIDCount(ctx context.Context) error
+	DecrementPatientIDCount(ctx context.Context) error
 }
 
 // FirebaseAuthRepository represents the repository functions for the firebase auth
