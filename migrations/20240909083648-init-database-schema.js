@@ -39,9 +39,9 @@ module.exports = {
             sex: { enum: ['male', 'female', 'other'] },
             education: { bsonType: 'string' },
             occupation: { bsonType: 'string' },
-            dateOfBirth: { bsonType: 'date' },
-            height: { bsonType: 'int' },
-            weight: { bsonType: 'int' },
+            dateOfBirth: { bsonType: 'string' },
+            height: { bsonType: 'double' },
+            weight: { bsonType: 'double' },
             modeOfArrival: { bsonType: 'string' },
             admittedForm: { bsonType: 'string' },
             initialVitalSigns: {
