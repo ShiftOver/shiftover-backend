@@ -42,12 +42,23 @@ func (h *httpHandler) InsertMedication(c echo.Context) error {
 	ctx := context.Background()
 	wrapper := request.ContextWrapper(c)
 
-	var payload dto.MedicationEntity
+	var payload dto.CreateMedicationRequest
 	if err := wrapper.Bind(&payload); err != nil {
 		return response.ErrResponse(c, http.StatusBadRequest, fmt.Sprintf("error - [InsertMedication]: unable to bind payload: %v", err))
 	}
 
-	err := h.d.Service.InsertMedication(ctx, payload)
+	medicationEntity := dto.MedicationEntity{
+		PatientID:     payload.PatientID,
+		Injection:     payload.Injection,
+		Intravenous:   payload.Injection,
+		Oral:          payload.Oral,
+		Topical:       payload.Topical,
+		Drop:          payload.Drop,
+		Implant:       payload.Implant,
+		Suppositories: payload.Suppositories,
+	}
+
+	err := h.d.Service.InsertMedication(ctx, medicationEntity)
 	if err != nil {
 		return response.ErrResponse(c, http.StatusInternalServerError, fmt.Sprintf("error - [InsertMedication]: unable to insert medication: %v", err))
 	}
