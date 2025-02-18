@@ -23,6 +23,7 @@ type PatientRepository interface {
 // PatientAssessmentRepository represents the repository functions for the patient assessments collection
 type PatientAssessmentRepository interface {
 	Fetch(ctx context.Context, patientID string) (*dto.PatientAssessmentEntity, error)
+	Upsert(ctx context.Context, entity dto.PatientAssessmentEntity) error
 }
 
 // NurseMonitoringRepository represents the repository functions for the nurse monitoring collection

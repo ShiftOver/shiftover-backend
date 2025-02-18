@@ -59,14 +59,18 @@ func New(c Config) {
 	mongoRepos := newMongoRepositories(ctx, c)
 
 	service := service.New(service.Dependencies{
-		UserRepository:     mongoRepos.userRepository,
-		PatientRepository:  mongoRepos.patientRepository,
-		HospitalRepository: mongoRepos.hospitalRepository,
-		WardRepository:     mongoRepos.wardRepository,
-		RoomRepository:     mongoRepos.roomRepository,
-		AuthRepository:     authRepo,
-		StorageRepository:  storageRepo,
-		CounterRepository:  mongoRepos.counterRepository,
+		UserRepository:              mongoRepos.userRepository,
+		PatientRepository:           mongoRepos.patientRepository,
+		PatientAssessmentRepository: mongoRepos.patientAssessmentRepository,
+		NurseMonitoringRepository:   mongoRepos.nurseMonitoringRepository,
+		MedicationRepository:        mongoRepos.medicationRepository,
+		NursingRepository:           mongoRepos.nursingRepository,
+		HospitalRepository:          mongoRepos.hospitalRepository,
+		WardRepository:              mongoRepos.wardRepository,
+		RoomRepository:              mongoRepos.roomRepository,
+		AuthRepository:              authRepo,
+		StorageRepository:           storageRepo,
+		CounterRepository:           mongoRepos.counterRepository,
 	})
 
 	handler.New(e, handler.Dependencies{

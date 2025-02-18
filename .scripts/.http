@@ -4,3 +4,211 @@ Content-Type: application/json
     "hospitalName": "h1",
     "hospitalAbbreviation": "h1"
 }
+
+POST http://localhost:8080/v1/patient/assessment
+Content-Type: application/json
+{
+    "patientId": "12345",
+    "spiritual": {
+        "religion": "Buddhist",
+        "specialConsideration": null,
+        "anxiety": "Mild",
+        "supportSystem": "Family"
+    },
+    "nutrition": {
+        "dietType": "Vegan",
+        "appetite": "Good",
+        "specialDiet": "No gluten",
+        "feeding": "Self",
+        "swallowing": "Normal",
+        "glProblem": "None",
+        "weightChange": {
+            "status": "Stable",
+            "change": {
+                "type": "Loss",
+                "weight": "3 kg",
+                "periodValue": 2,
+                "periodType": "months"
+            }
+        }
+    },
+    "pulmonary": {
+        "rate": "Normal",
+        "rhythm": "Regular",
+        "effort": "Normal",
+        "cough": "None",
+        "sputum": "None"
+    },
+    "cardiovascular": {
+        "pulseRhythm": "Regular",
+        "pulseAmplitude": "Normal",
+        "pulseRate": "72 bpm",
+        "edema": "None",
+        "neckVeinEngorged": "No",
+        "chestPain": {
+            "yes": false,
+            "location": null,
+            "referredPain": null,
+            "duration": null,
+            "frequency": null
+        }
+    },
+    "cardioCurrentTreatment": "None",
+    "neurosensory": {
+        "levelOfConsciousness": "Alert",
+        "vision": {
+            "lt": false,
+            "rt": false,
+            "device": null
+        },
+        "hearing": {
+            "lt": false,
+            "rt": false,
+            "device": null
+        },
+        "speech": {
+            "normal": true,
+            "device": null
+        },
+        "smell": {
+            "normal": true,
+            "description": null
+        },
+        "sensation": "Normal"
+    },
+    "musculoskeletal": {
+        "handGrasps": {
+            "status": "Normal",
+            "rt": null,
+            "lt": null
+        },
+        "joint": {
+            "status": "WNL",
+            "description": null
+        },
+        "weakness": {
+            "yes": false,
+            "description": null
+        },
+        "paralysis": {
+            "yes": false,
+            "description": null
+        },
+        "seizure": {
+            "yes": false,
+            "description": null
+        },
+        "movement": {
+            "yes": false,
+            "description": null
+        }
+    },
+    "mobility": {
+        "activity": {
+            "independent": true,
+            "assistance": null
+        },
+        "prostheticDevices": {
+            "cane": false,
+            "walker": false,
+            "wheelChair": false,
+            "artificialLimb": null,
+            "other": null
+        },
+        "injury": {
+            "yes": false,
+            "description": null
+        },
+        "dominantHand": "Right"
+    },
+    "teaching": [
+        "Medication adherence",
+        "Exercise"
+    ],
+    "gastrointestinal": {
+        "oralCavity": "Normal",
+        "abdomen": "Soft, non-tender",
+        "bowelPattern": {
+            "frequency": 1,
+            "days": 1
+        },
+        "eliminationProblem": "None"
+    },
+    "genitourinary": {
+        "bladder": "Normal",
+        "voiding": {
+            "day": 5,
+            "night": 1,
+            "status": "Normal"
+        },
+        "urine": "Clear"
+    },
+    "painManagement": {
+        "pain": {
+            "yes": true,
+            "description": "Lower back pain",
+            "when": "After long sitting",
+            "cause": "Posture"
+        },
+        "pattern": "Other:Chronic",
+        "patientDescribe": "Other:Aching",
+        "intensity": 4,
+        "affectedAbility": "Mild discomfort while sitting",
+        "relieves": "Medication:Ibuprofen/Other:Stretching"
+    },
+    "discharge": {
+        "screeningCriteria": {
+            "postDischargeAssistance": {
+                "yes": true,
+                "familyCapable": {
+                    "yes": true,
+                    "description": "Spouse available for assistance"
+                },
+                "familyCannotProvide": {
+                    "yes": false,
+                    "description": null
+                }
+            },
+            "financialConcern": {
+                "yes": false,
+                "description": null
+            }
+        },
+        "homeEnvironment": {
+            "liveWith": "Family",
+            "liveWhere": "House"
+        },
+        "planningNeeds": {
+            "medication": {
+                "yes": true,
+                "description": "Needs painkillers"
+            },
+            "environment": {
+                "yes": false,
+                "description": null
+            },
+            "treatment": {
+                "yes": false,
+                "description": null
+            },
+            "health": {
+                "yes": false,
+                "description": null
+            },
+            "outpatientReferral": {
+                "yes": false,
+                "description": null
+            },
+            "diet": {
+                "yes": true,
+                "description": "Low-sodium diet recommended"
+            }
+        },
+        "referralNeeds": {
+            "possibleNeeds": "Physical therapy",
+            "rnAssessment": "Moderate improvement",
+            "date": "2025-02-15",
+            "time": "10:00 AM"
+        }
+    }
+}
