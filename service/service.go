@@ -22,6 +22,7 @@ type Port interface {
 
 	// Patient Assessment Service
 	GetPatientAssessment(ctx context.Context, patientID string) (*dto.PatientAssessmentEntity, error)
+	UpsertPatientAssessment(ctx context.Context, patientAssessment dto.PatientAssessmentEntity) error
 
 	// Room Service
 	GetRoom(ctx context.Context, roomID string) (*dto.GetRoomResponse, error)
@@ -39,18 +40,18 @@ type Port interface {
 }
 
 type service struct {
-	userRepository             repository.UserRepository
-	patientRepository          repository.PatientRepository
-	patientAssesmentRepository repository.PatientAssessmentRepository
-	nurseMonitoringRepository  repository.NurseMonitoringRepository
-	medicationRepository       repository.MedicationRepository
-	nursingRepository          repository.NursingRepository
-	hospitalRepository         repository.HospitalRepository
-	wardRepository             repository.WardRepository
-	roomRepository             repository.RoomRepository
-	authRepository             repository.FirebaseAuthRepository
-	storageRepository          repository.FirebaseStorageRepository
-	counterRepository          repository.CounterRepository
+	userRepository              repository.UserRepository
+	patientRepository           repository.PatientRepository
+	patientAssessmentRepository repository.PatientAssessmentRepository
+	nurseMonitoringRepository   repository.NurseMonitoringRepository
+	medicationRepository        repository.MedicationRepository
+	nursingRepository           repository.NursingRepository
+	hospitalRepository          repository.HospitalRepository
+	wardRepository              repository.WardRepository
+	roomRepository              repository.RoomRepository
+	authRepository              repository.FirebaseAuthRepository
+	storageRepository           repository.FirebaseStorageRepository
+	counterRepository           repository.CounterRepository
 }
 
 // Dependencies represents the dependencies for the service
@@ -72,17 +73,17 @@ type Dependencies struct {
 // New creates a new service
 func New(d Dependencies) Port {
 	return &service{
-		userRepository:             d.UserRepository,
-		patientRepository:          d.PatientRepository,
-		patientAssesmentRepository: d.PatientAssessmentRepository,
-		nurseMonitoringRepository:  d.NurseMonitoringRepository,
-		medicationRepository:       d.MedicationRepository,
-		nursingRepository:          d.NursingRepository,
-		hospitalRepository:         d.HospitalRepository,
-		wardRepository:             d.WardRepository,
-		roomRepository:             d.RoomRepository,
-		authRepository:             d.AuthRepository,
-		storageRepository:          d.StorageRepository,
-		counterRepository:          d.CounterRepository,
+		userRepository:              d.UserRepository,
+		patientRepository:           d.PatientRepository,
+		patientAssessmentRepository: d.PatientAssessmentRepository,
+		nurseMonitoringRepository:   d.NurseMonitoringRepository,
+		medicationRepository:        d.MedicationRepository,
+		nursingRepository:           d.NursingRepository,
+		hospitalRepository:          d.HospitalRepository,
+		wardRepository:              d.WardRepository,
+		roomRepository:              d.RoomRepository,
+		authRepository:              d.AuthRepository,
+		storageRepository:           d.StorageRepository,
+		counterRepository:           d.CounterRepository,
 	}
 }
