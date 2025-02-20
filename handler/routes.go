@@ -32,7 +32,7 @@ func (h *httpHandler) initRoutes(e *echo.Echo) {
 	medicationV1 := v1.Group("/medication")
 	medicationV1.GET("/:id", h.GetMedication)
 	medicationV1.POST("", h.InsertMedication)
-	medicationV1.PUT("", h.UpsertMedication)
+	medicationV1.POST("", h.UpsertMedication)
 
 	wardV1 := v1.Group("/ward")
 
