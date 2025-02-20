@@ -32,6 +32,11 @@ type Port interface {
 	GetHospital(ctx context.Context, hospitalID string) (*dto.HospitalEntity, error)
 	ListHospital(ctx context.Context) ([]*dto.HospitalEntity, error)
 	InsertHospital(ctx context.Context, payload *dto.HospitalEntity) error
+
+	// Medication Service
+	GetMedication(ctx context.Context, patientID string) (*dto.MedicationEntity, error)
+	InsertMedication(ctx context.Context, medication dto.MedicationEntity) error
+	UpsertMedication(ctx context.Context, medication dto.MedicationEntity) error
 }
 
 type service struct {

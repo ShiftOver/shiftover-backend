@@ -32,6 +32,9 @@ type NurseMonitoringRepository interface {
 
 // MedicationRepository represents the repository functions for the medications collection
 type MedicationRepository interface {
+	Fetch(ctx context.Context, patientID string) (*dto.MedicationEntity, error)
+	Insert(ctx context.Context, medication dto.MedicationEntity) error
+	Upsert(ctx context.Context, medication dto.MedicationEntity) error
 }
 
 // NursingRepository represents the repository functions for the nursing collection

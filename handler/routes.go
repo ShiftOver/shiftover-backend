@@ -29,6 +29,11 @@ func (h *httpHandler) initRoutes(e *echo.Echo) {
 	hospitalV1.GET("", h.ListHospital)
 	hospitalV1.POST("", h.InsertHospital)
 
+	medicationV1 := v1.Group("/medication")
+	medicationV1.GET("/:id", h.GetMedication)
+	medicationV1.POST("", h.InsertMedication)
+	medicationV1.POST("", h.UpsertMedication)
+
 	wardV1 := v1.Group("/ward")
 
 	roomV1 := v1.Group("/room")
