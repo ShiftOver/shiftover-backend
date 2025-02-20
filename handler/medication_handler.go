@@ -9,6 +9,7 @@ import (
 	"github.com/ShiftOver/shiftover-backend/pkg/request"
 	"github.com/ShiftOver/shiftover-backend/pkg/response"
 	"github.com/labstack/echo/v4"
+	"github.com/pkg/errors"
 )
 
 // GetMedication is a handler function to fetch a medication by patientID
@@ -79,19 +80,14 @@ func (h *httpHandler) UpsertMedication(c echo.Context) error {
 	ctx := context.Background()
 	wrapper := request.ContextWrapper(c)
 
-	var filter map[string]interface{}
-	if err := wrapper.Bind(&filter); err != nil {
-		return response.ErrResponse(c, http.StatusBadRequest, fmt.Sprintf("error - [UpsertMedication]: unable to bind filter: %v", err))
-	}
-
 	var payload dto.MedicationEntity
 	if err := wrapper.Bind(&payload); err != nil {
 		return response.ErrResponse(c, http.StatusBadRequest, fmt.Sprintf("error - [UpsertMedication]: unable to bind payload: %v", err))
 	}
 
-	err := h.d.Service.UpsertMedication(ctx, filter, payload)
+	err := h.d.Service.UpsertMedication(ctx, payload)
 	if err != nil {
-		return response.ErrResponse(c, http.StatusInternalServerError, fmt.Sprintf("error - [UpsertMedication]: unable to upsert medication: %v", err))
+		return response.ErrResponse(c, http.StatusInternalServerError, errors.Wrap(err, "error - [UpsertMedication]: unable to upsert medication").Error())
 	}
 
 	return response.SuccessResponse(c, http.StatusOK, "Medication upserted successfully")

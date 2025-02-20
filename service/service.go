@@ -36,7 +36,7 @@ type Port interface {
 	// Medication Service
 	GetMedication(ctx context.Context, patientID string) (*dto.MedicationEntity, error)
 	InsertMedication(ctx context.Context, medication dto.MedicationEntity) error
-	UpsertMedication(ctx context.Context, filter map[string]interface{}, update dto.MedicationEntity) error
+	UpsertMedication(ctx context.Context, medication dto.MedicationEntity) error
 }
 
 type service struct {
