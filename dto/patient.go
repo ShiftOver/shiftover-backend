@@ -7,8 +7,7 @@ type Allergy struct {
 	Name string `json:"name" bson:"name"`
 }
 
-// CreatePatientRequest represents the request payload for creating a patient
-type CreatePatientRequest struct {
+type PatientModel struct {
 	FirstName            string       `json:"firstName"`
 	LastName             string       `json:"lastName"`
 	DateOfBirth          string       `json:"dateOfBirth"`
@@ -35,6 +34,12 @@ type CreatePatientRequest struct {
 	Exercise             Exercise     `json:"exercise"`
 	Sleep                Sleep        `json:"sleep"`
 	Information          Information  `json:"information"`
+}
+
+// CreatePatientRequest represents the request payload for creating a patient
+type CreatePatientRequest struct {
+	RoomID       string       `json:"roomID" bson:"roomID"`
+	PatientModel PatientModel `json:"patientModel"`
 }
 
 // PatientEntity represents the patient entity

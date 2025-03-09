@@ -48,36 +48,7 @@ func (h *httpHandler) InsertPatient(c echo.Context) error {
 		return response.ErrResponse(c, http.StatusBadRequest, fmt.Sprintf("error - [InsertPatient]: unable to bind payload: %v", err))
 	}
 
-	patientEntity := dto.PatientEntity{
-		FirstName:            payload.FirstName,
-		LastName:             payload.LastName,
-		DateOfBirth:          payload.DateOfBirth,
-		HN:                   payload.HN,
-		Sex:                  payload.Sex,
-		Allergies:            payload.Allergies,
-		ProfilePictureURL:    payload.ProfilePictureURL,
-		Education:            payload.Education,
-		Occupation:           payload.Occupation,
-		Height:               payload.Height,
-		Weight:               payload.Weight,
-		ModeOfArrival:        payload.ModeOfArrival,
-		AdmittedForm:         payload.AdmittedForm,
-		InitialVitalSigns:    payload.InitialVitalSigns,
-		Diagnosis:            payload.Diagnosis,
-		ChiefComplaint:       payload.ChiefComplaint,
-		PastIllness:          payload.PastIllness,
-		PastIllnessHistory:   payload.PastIllnessHistory,
-		FamilyIllnessHistory: payload.FamilyIllnessHistory,
-		Reactions:            payload.Reactions,
-		Tobacco:              payload.Tobacco,
-		Alcohol:              payload.Alcohol,
-		Drugs:                payload.Drugs,
-		Exercise:             payload.Exercise,
-		Sleep:                payload.Sleep,
-		Information:          payload.Information,
-	}
-
-	err := h.d.Service.InsertPatient(ctx, patientEntity)
+	err := h.d.Service.InsertPatient(ctx, payload)
 	if err != nil {
 		return response.ErrResponse(c, http.StatusInternalServerError, fmt.Sprintf("error - [InsertPatient]: unable to insert patient: %v", err))
 	}

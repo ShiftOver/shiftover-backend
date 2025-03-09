@@ -5,6 +5,8 @@ import (
 	"fmt"
 	"net/http"
 
+	"github.com/ShiftOver/shiftover-backend/dto"
+	"github.com/ShiftOver/shiftover-backend/pkg/request"
 	"github.com/ShiftOver/shiftover-backend/pkg/response"
 	"github.com/labstack/echo/v4"
 )
@@ -43,4 +45,21 @@ func (h *httpHandler) ListRooms(c echo.Context) error {
 	}
 
 	return response.SuccessResponse(c, http.StatusOK, rooms)
+}
+
+func (h *httpHandler) InsertRoom(c echo.Context) error {
+	ctx := context.Background()
+	wrapper := request.ContextWrapper(c)
+
+	var payload dto.RoomEntity
+	if err := wrapper.Bind(&payload); err != nil {
+		return response.ErrResponse(c, http.StatusBadRequest, fmt.Sprintf("error - [InsertRoom]: unable to bind payload: %v", err))
+	}
+
+	err := h.d.Service.InsertRoom(ctx, payload)
+	if err != nil {
+		return response.ErrResponse(c, http.StatusInternalServerError, fmt.Sprintf("error - [InsertRoom]: unable to insert room: %v", err))
+	}
+
+	return response.SuccessResponse(c, http.StatusOK, "Room inserted successfully")
 }

@@ -62,6 +62,7 @@ type RoomRepository interface {
 	Fetch(ctx context.Context, roomID string) (*dto.RoomEntity, error)
 	List(ctx context.Context) ([]*dto.RoomEntity, error)
 	Insert(ctx context.Context, entity dto.RoomEntity) error
+	AddPatient(ctx context.Context, entity dto.AddPatientRequest) error
 }
 
 // CounterRepository represents the repository functions for the counters collection
