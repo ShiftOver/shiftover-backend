@@ -75,3 +75,12 @@ func (s *service) ListRooms(ctx context.Context) ([]*dto.GetRoomResponse, error)
 
 	return results, nil
 }
+
+func (s *service) InsertRoom(ctx context.Context, room dto.RoomEntity) error {
+	err := s.roomRepository.Insert(ctx, room)
+	if err != nil {
+		return errors.Wrap(err, "error - [service.InsertRoom]: unable to insert room")
+	}
+
+	return nil
+}

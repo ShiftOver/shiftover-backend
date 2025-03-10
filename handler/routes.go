@@ -39,6 +39,7 @@ func (h *httpHandler) initRoutes(e *echo.Echo) {
 	roomV1 := v1.Group("/room")
 	roomV1.GET("", h.ListRooms)
 	roomV1.GET("/:id", h.GetRoom)
+	roomV1.POST("", h.InsertRoom)
 
 	_ = wardV1
 }

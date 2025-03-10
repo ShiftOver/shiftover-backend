@@ -18,7 +18,36 @@ func (s *service) GetPatient(ctx context.Context, patientID string) (*dto.Patien
 	return patient, nil
 }
 
-func (s *service) InsertPatient(ctx context.Context, patient dto.PatientEntity) error {
+func (s *service) InsertPatient(ctx context.Context, patientRequest dto.CreatePatientRequest) error {
+
+	patient := dto.PatientEntity{
+		FirstName:            patientRequest.PatientModel.FirstName,
+		LastName:             patientRequest.PatientModel.LastName,
+		DateOfBirth:          patientRequest.PatientModel.DateOfBirth,
+		HN:                   patientRequest.PatientModel.HN,
+		Sex:                  patientRequest.PatientModel.Sex,
+		Allergies:            patientRequest.PatientModel.Allergies,
+		ProfilePictureURL:    patientRequest.PatientModel.ProfilePictureURL,
+		Education:            patientRequest.PatientModel.Education,
+		Occupation:           patientRequest.PatientModel.Occupation,
+		Height:               patientRequest.PatientModel.Height,
+		Weight:               patientRequest.PatientModel.Weight,
+		ModeOfArrival:        patientRequest.PatientModel.ModeOfArrival,
+		AdmittedForm:         patientRequest.PatientModel.AdmittedForm,
+		InitialVitalSigns:    patientRequest.PatientModel.InitialVitalSigns,
+		Diagnosis:            patientRequest.PatientModel.Diagnosis,
+		ChiefComplaint:       patientRequest.PatientModel.ChiefComplaint,
+		PastIllness:          patientRequest.PatientModel.PastIllness,
+		PastIllnessHistory:   patientRequest.PatientModel.PastIllnessHistory,
+		FamilyIllnessHistory: patientRequest.PatientModel.FamilyIllnessHistory,
+		Reactions:            patientRequest.PatientModel.Reactions,
+		Tobacco:              patientRequest.PatientModel.Tobacco,
+		Alcohol:              patientRequest.PatientModel.Alcohol,
+		Drugs:                patientRequest.PatientModel.Drugs,
+		Exercise:             patientRequest.PatientModel.Exercise,
+		Sleep:                patientRequest.PatientModel.Sleep,
+		Information:          patientRequest.PatientModel.Information,
+	}
 	// Fetch the next patient ID from the counter repository
 	patientID, err := s.counterRepository.GetCurrentPatientIDCount(ctx)
 	if err != nil {
@@ -42,6 +71,15 @@ func (s *service) InsertPatient(ctx context.Context, patient dto.PatientEntity) 
 	err = s.patientRepository.Insert(ctx, patient)
 	if err != nil {
 		return errors.Wrap(err, "error - [service.InsertPatient]: unable to insert patient")
+	}
+
+	addPatienttoRoomRequest := dto.AddPatientRequest{
+		RoomID:    patientRequest.RoomID,
+		PatientID: patient.PatientID,
+	}
+	err = s.roomRepository.AddPatient(ctx, addPatienttoRoomRequest)
+	if err != nil {
+		return errors.Wrap(err, "error - [service.InsertPatient]: unable to add patient to room")
 	}
 
 	return nil

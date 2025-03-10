@@ -21,3 +21,9 @@ type GetRoomResponse struct {
 	UpdatedAt      time.Time     `json:"updatedAt"`
 	CreatedAt      time.Time     `json:"createdAt"`
 }
+
+// AddPatientRequest represents the request dto for the add patient endpoint
+type AddPatientRequest struct {
+	PatientID string `json:"patientId"`
+	RoomID    string `json:"roomId"`
+}
