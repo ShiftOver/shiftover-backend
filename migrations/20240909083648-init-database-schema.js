@@ -247,6 +247,18 @@ module.exports = {
                 }
               }
             },
+            skin: {
+              bsonType: "array",
+              items: {
+                bsonType: "object",
+                properties: {
+                  skinType: { bsonType: "string" },
+                  description: { bsonType: "string" },
+                  top: { bsonType: "string" },
+                  left: { bsonType: "string" }
+                }
+              }
+            },
             pulmonary: {
               bsonType: "object",
               properties: {
@@ -556,7 +568,7 @@ module.exports = {
       }
     });
 
-    // nurse_monitoring collection
+    // nurse_monitorings collection
     await db.createCollection('nurse_monitorings', {
       validator: {
         $jsonSchema: {
@@ -1129,7 +1141,7 @@ module.exports = {
     await db.collection('users').drop();
     await db.collection('patients').drop();
     await db.collection('chart_reviews')
-    await db.collection('patients_assessments').drop();
+    await db.collection('patient_assessments').drop();
     await db.collection('nurse_monitorings').drop();
     await db.collection('medications').drop();
     await db.collection('nursings').drop();
