@@ -20,6 +20,7 @@ func (h *httpHandler) initRoutes(e *echo.Echo) {
 	patientV1 := v1.Group("/patient")
 	patientV1.GET("/:id", h.GetPatient)
 	patientV1.POST("", h.InsertPatient)
+	patientV1.GET("/chart/:id", h.GetChartReview)
 	patientV1.GET("/assessment/:id", h.GetPatientAssessment)
 	patientV1.POST("/assessment", h.UpsertPatientAssessment)
 

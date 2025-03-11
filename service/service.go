@@ -20,6 +20,9 @@ type Port interface {
 	GetPatient(ctx context.Context, patientID string) (*dto.PatientEntity, error)
 	InsertPatient(ctx context.Context, patient dto.CreatePatientRequest) error
 
+	// Chart Review Service
+	GetChartReview(ctx context.Context, patientID string) (*dto.ChartReviewEntity, error)
+
 	// Patient Assessment Service
 	GetPatientAssessment(ctx context.Context, patientID string) (*dto.PatientAssessmentEntity, error)
 	UpsertPatientAssessment(ctx context.Context, patientAssessment dto.PatientAssessmentEntity) error

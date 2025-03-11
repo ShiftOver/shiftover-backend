@@ -22,6 +22,7 @@ type PatientRepository interface {
 
 // ChartReviewRepository represents the repository functions for the chart reviews collection
 type ChartReviewRepository interface {
+	Fetch(ctx context.Context, patientID string) (*dto.ChartReviewEntity, error)
 }
 
 // PatientAssessmentRepository represents the repository functions for the patient assessments collection
