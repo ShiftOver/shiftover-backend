@@ -177,6 +177,33 @@ module.exports = {
       },
     });
 
+    // chart_reviews collection
+    await db.createCollection('chart_reviews', {
+      validator: {
+        $jsonSchema: {
+          bsonType: 'object',
+          required: ['patientId', 'createdAt', 'updatedAt'],
+          properties: {
+            patientId: { bsonType: 'string' },
+            charts: {
+              bsonType: 'array',
+              items: {
+                bsonType: 'object',
+                required: ['chartType', 'top', 'left'],
+                properties: {
+                  chartType: { bsonType: 'string' },
+                  top: { bsonType: 'string' },
+                  left: { bsonType: 'string' },
+                },
+              },
+            },
+            createdAt: { bsonType: 'date' },
+            updatedAt: { bsonType: 'date' },
+          },
+        },
+      },
+    });
+
     // patient_assessments collection
     await db.createCollection('patient_assessments', {
       validator: {
@@ -1101,6 +1128,7 @@ module.exports = {
   async down(db, client) {
     await db.collection('users').drop();
     await db.collection('patients').drop();
+    await db.collection('chart_reviews')
     await db.collection('patients_assessments').drop();
     await db.collection('nurse_monitorings').drop();
     await db.collection('medications').drop();
