@@ -2,8 +2,11 @@ package handler
 
 import (
 	"context"
+	"fmt"
 	"net/http"
 
+	"github.com/ShiftOver/shiftover-backend/dto"
+	"github.com/ShiftOver/shiftover-backend/pkg/request"
 	"github.com/ShiftOver/shiftover-backend/pkg/response"
 	"github.com/labstack/echo/v4"
 	"github.com/pkg/errors"
@@ -26,4 +29,30 @@ func (h *httpHandler) GetChartReview(c echo.Context) error {
 	}
 
 	return response.SuccessResponse(c, http.StatusOK, chartReview)
+}
+
+// UpsertChartReview is a handler function to upsert a chart review into the database
+// @Summary Upsert a chartReview
+// @Description Upsert a chartReview into the database
+// @Tags ChartReview
+// @Accept json
+// @Param id path string true "Patient ID"
+// @Param body body dto.UpdateChartReviewRequest true "ChartReview Request"
+// @Success 200
+// @Router /v1/patient/chart [post]
+func (h *httpHandler) UpsertChartReview(c echo.Context) error {
+	ctx := context.Background()
+	wrapper := request.ContextWrapper(c)
+
+	var payload dto.UpdateChartReviewRequest
+	if err := wrapper.Bind(&payload); err != nil {
+		return response.ErrResponse(c, http.StatusBadRequest, fmt.Sprintf("error - [UpsertChartReview]: unable to bind payload: %v", err))
+	}
+
+	err := h.d.Service.UpsertChartReview(ctx, payload)
+	if err != nil {
+		return response.ErrResponse(c, http.StatusInternalServerError, errors.Wrap(err, "error - [UpsertChartReview]: unable to upsert chartReview").Error())
+	}
+
+	return response.SuccessResponse(c, http.StatusOK, nil)
 }

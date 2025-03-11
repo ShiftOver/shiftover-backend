@@ -22,6 +22,7 @@ type Port interface {
 
 	// Chart Review Service
 	GetChartReview(ctx context.Context, patientID string) (*dto.ChartReviewEntity, error)
+	UpsertChartReview(ctx context.Context, req dto.UpdateChartReviewRequest) error
 
 	// Patient Assessment Service
 	GetPatientAssessment(ctx context.Context, patientID string) (*dto.PatientAssessmentEntity, error)

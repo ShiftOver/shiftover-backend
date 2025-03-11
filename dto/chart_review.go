@@ -15,3 +15,9 @@ type Chart struct {
 	Top       string `bson:"top" json:"top"`
 	Left      string `bson:"left" json:"left"`
 }
+
+// UpdateChartReviewRequest represents the request for updating a chart review
+type UpdateChartReviewRequest struct {
+	PatientID string `json:"patientId"`
+	Charts    Chart  `json:"charts"`
+}
