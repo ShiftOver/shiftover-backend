@@ -20,6 +20,10 @@ type PatientRepository interface {
 	Insert(ctx context.Context, entity dto.PatientEntity) error
 }
 
+// ChartReviewRepository represents the repository functions for the chart reviews collection
+type ChartReviewRepository interface {
+}
+
 // PatientAssessmentRepository represents the repository functions for the patient assessments collection
 type PatientAssessmentRepository interface {
 	Fetch(ctx context.Context, patientID string) (*dto.PatientAssessmentEntity, error)

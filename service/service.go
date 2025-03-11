@@ -43,6 +43,7 @@ type Port interface {
 type service struct {
 	userRepository              repository.UserRepository
 	patientRepository           repository.PatientRepository
+	chartReviewRepository       repository.ChartReviewRepository
 	patientAssessmentRepository repository.PatientAssessmentRepository
 	nurseMonitoringRepository   repository.NurseMonitoringRepository
 	medicationRepository        repository.MedicationRepository
@@ -59,6 +60,7 @@ type service struct {
 type Dependencies struct {
 	UserRepository              repository.UserRepository
 	PatientRepository           repository.PatientRepository
+	ChartReviewRepository       repository.ChartReviewRepository
 	PatientAssessmentRepository repository.PatientAssessmentRepository
 	NurseMonitoringRepository   repository.NurseMonitoringRepository
 	MedicationRepository        repository.MedicationRepository
@@ -76,6 +78,7 @@ func New(d Dependencies) Port {
 	return &service{
 		userRepository:              d.UserRepository,
 		patientRepository:           d.PatientRepository,
+		chartReviewRepository:       d.ChartReviewRepository,
 		patientAssessmentRepository: d.PatientAssessmentRepository,
 		nurseMonitoringRepository:   d.NurseMonitoringRepository,
 		medicationRepository:        d.MedicationRepository,
