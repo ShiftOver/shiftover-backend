@@ -21,6 +21,7 @@ type Config struct {
 	FirebaseConfig                    config.FirebaseConfig
 	UserRepositoryConfig              repository.UserRepositoryConfig
 	PatientRepositoryConfig           repository.PatientRepositoryConfig
+	ChartReviewRepositoryConfig       repository.ChartReviewRepositoryConfig
 	PatientAssessmentRepositoryConfig repository.PatientAssessmentRepositoryConfig
 	NurseMonitoringRepositoryConfig   repository.NurseMonitoringRepositoryConfig
 	MedicationRepositoryConfig        repository.MedicationRepositoryConfig
@@ -34,6 +35,7 @@ type Config struct {
 type mongoRepositories struct {
 	userRepository              repository.UserRepository
 	patientRepository           repository.PatientRepository
+	chartReviewRepository       repository.ChartReviewRepository
 	patientAssessmentRepository repository.PatientAssessmentRepository
 	nurseMonitoringRepository   repository.NurseMonitoringRepository
 	medicationRepository        repository.MedicationRepository
@@ -61,6 +63,7 @@ func New(c Config) {
 	service := service.New(service.Dependencies{
 		UserRepository:              mongoRepos.userRepository,
 		PatientRepository:           mongoRepos.patientRepository,
+		ChartReviewRepository:       mongoRepos.chartReviewRepository,
 		PatientAssessmentRepository: mongoRepos.patientAssessmentRepository,
 		NurseMonitoringRepository:   mongoRepos.nurseMonitoringRepository,
 		MedicationRepository:        mongoRepos.medicationRepository,

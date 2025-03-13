@@ -20,6 +20,10 @@ type Port interface {
 	GetPatient(ctx context.Context, patientID string) (*dto.PatientEntity, error)
 	InsertPatient(ctx context.Context, patient dto.CreatePatientRequest) error
 
+	// Chart Review Service
+	GetChartReview(ctx context.Context, patientID string) (*dto.ChartReviewEntity, error)
+	UpsertChartReview(ctx context.Context, req dto.UpdateChartReviewRequest) error
+
 	// Patient Assessment Service
 	GetPatientAssessment(ctx context.Context, patientID string) (*dto.PatientAssessmentEntity, error)
 	UpsertPatientAssessment(ctx context.Context, patientAssessment dto.PatientAssessmentEntity) error
@@ -43,6 +47,7 @@ type Port interface {
 type service struct {
 	userRepository              repository.UserRepository
 	patientRepository           repository.PatientRepository
+	chartReviewRepository       repository.ChartReviewRepository
 	patientAssessmentRepository repository.PatientAssessmentRepository
 	nurseMonitoringRepository   repository.NurseMonitoringRepository
 	medicationRepository        repository.MedicationRepository
@@ -59,6 +64,7 @@ type service struct {
 type Dependencies struct {
 	UserRepository              repository.UserRepository
 	PatientRepository           repository.PatientRepository
+	ChartReviewRepository       repository.ChartReviewRepository
 	PatientAssessmentRepository repository.PatientAssessmentRepository
 	NurseMonitoringRepository   repository.NurseMonitoringRepository
 	MedicationRepository        repository.MedicationRepository
@@ -76,6 +82,7 @@ func New(d Dependencies) Port {
 	return &service{
 		userRepository:              d.UserRepository,
 		patientRepository:           d.PatientRepository,
+		chartReviewRepository:       d.ChartReviewRepository,
 		patientAssessmentRepository: d.PatientAssessmentRepository,
 		nurseMonitoringRepository:   d.NurseMonitoringRepository,
 		medicationRepository:        d.MedicationRepository,

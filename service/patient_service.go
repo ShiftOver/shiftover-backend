@@ -18,8 +18,8 @@ func (s *service) GetPatient(ctx context.Context, patientID string) (*dto.Patien
 	return patient, nil
 }
 
+// InsertPatient inserts a new patient into the database
 func (s *service) InsertPatient(ctx context.Context, patientRequest dto.CreatePatientRequest) error {
-
 	patient := dto.PatientEntity{
 		FirstName:            patientRequest.PatientModel.FirstName,
 		LastName:             patientRequest.PatientModel.LastName,
@@ -73,6 +73,7 @@ func (s *service) InsertPatient(ctx context.Context, patientRequest dto.CreatePa
 		return errors.Wrap(err, "error - [service.InsertPatient]: unable to insert patient")
 	}
 
+	// Add the patient to the room
 	addPatienttoRoomRequest := dto.AddPatientRequest{
 		RoomID:    patientRequest.RoomID,
 		PatientID: patient.PatientID,
@@ -80,6 +81,15 @@ func (s *service) InsertPatient(ctx context.Context, patientRequest dto.CreatePa
 	err = s.roomRepository.AddPatient(ctx, addPatienttoRoomRequest)
 	if err != nil {
 		return errors.Wrap(err, "error - [service.InsertPatient]: unable to add patient to room")
+	}
+
+	// Create a new chart review for the patient
+	chartReview := dto.ChartReviewEntity{
+		PatientID: patient.PatientID,
+	}
+	err = s.chartReviewRepository.Upsert(ctx, chartReview)
+	if err != nil {
+		return errors.Wrap(err, "error - [service.InsertPatient]: unable to create chart review")
 	}
 
 	return nil

@@ -39,6 +39,9 @@ func main() {
 		PatientRepositoryConfig: repository.PatientRepositoryConfig{
 			CollectionName: os.Getenv("MONGO_COLLECTION_PATIENT"),
 		},
+		ChartReviewRepositoryConfig: repository.ChartReviewRepositoryConfig{
+			CollectionName: os.Getenv("MONGO_COLLECTION_CHART_REVIEW"),
+		},
 		PatientAssessmentRepositoryConfig: repository.PatientAssessmentRepositoryConfig{
 			CollectionName: os.Getenv("MONGO_COLLECTION_PATIENT_ASSESSMENT"),
 		},

@@ -37,6 +37,9 @@ func newMongoRepositories(pctx context.Context, c Config) *mongoRepositories {
 	patientColl := client.Database(c.MongoConfig.DBName).Collection(c.PatientRepositoryConfig.CollectionName)
 	patientRepo := repository.NewPatientRepository(*patientColl)
 
+	chartReviewColl := client.Database(c.MongoConfig.DBName).Collection(c.ChartReviewRepositoryConfig.CollectionName)
+	chartReviewRepo := repository.NewChartReviewRepository(*chartReviewColl)
+
 	patientAssessmentColl := client.Database(c.MongoConfig.DBName).Collection(c.PatientAssessmentRepositoryConfig.CollectionName)
 	patientAssessmentRepo := repository.NewPatientAssessmentRepository(*patientAssessmentColl)
 
@@ -64,6 +67,7 @@ func newMongoRepositories(pctx context.Context, c Config) *mongoRepositories {
 	return &mongoRepositories{
 		userRepository:              userRepo,
 		patientRepository:           patientRepo,
+		chartReviewRepository:       chartReviewRepo,
 		patientAssessmentRepository: patientAssessmentRepo,
 		nurseMonitoringRepository:   nurseMonitoringRepo,
 		medicationRepository:        medicationRepo,
