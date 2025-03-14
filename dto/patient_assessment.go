@@ -6,6 +6,7 @@ type PatientAssessmentEntity struct {
 	PatientID              string           `bson:"patientId" json:"patientId"`
 	Spiritual              Spiritual        `bson:"spiritual" json:"spiritual"`
 	Nutrition              Nutrition        `bson:"nutrition" json:"nutrition"`
+	Skin                   Skin             `bson:"skin" json:"skin"`
 	Pulmonary              Pulmonary        `bson:"pulmonary" json:"pulmonary"`
 	Cardiovascular         Cardiovascular   `bson:"cardiovascular" json:"cardiovascular"`
 	CardioCurrentTreatment string           `bson:"cardioCurrentTreatment" json:"cardioCurrentTreatment"`
@@ -36,6 +37,18 @@ type Nutrition struct {
 	Swallowing   string             `bson:"swallowing" json:"swallowing"`
 	GlProblem    string             `bson:"glProblem" json:"glProblem"`
 	WeightChange WeightChangeStatus `bson:"weightChange" json:"weightChange"`
+}
+
+type Skin struct {
+	Front []SkinRecords `bson:"front" json:"front"`
+	Back  []SkinRecords `bson:"back" json:"back"`
+}
+
+type SkinRecords struct {
+	SkinType    string `bson:"skinType" json:"skinType"`
+	Description string `bson:"description" json:"description"`
+	Top         string `bson:"top" json:"top"`
+	Left        string `bson:"left" json:"left"`
 }
 
 type WeightChangeStatus struct {
