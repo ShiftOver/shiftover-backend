@@ -248,14 +248,31 @@ module.exports = {
               }
             },
             skin: {
-              bsonType: "array",
-              items: {
-                bsonType: "object",
-                properties: {
-                  skinType: { bsonType: "string" },
-                  description: { bsonType: "string" },
-                  top: { bsonType: "string" },
-                  left: { bsonType: "string" }
+              bsonType: "object",
+              properties: {
+                front: {
+                  bsonType: "array",
+                  items: {
+                    bsonType: "object",
+                    properties: {
+                      skinType: { bsonType: "string" },
+                      description: { bsonType: "string" },
+                      top: { bsonType: "string" },
+                      left: { bsonType: "string" }
+                    }
+                  }
+                },
+                back: {
+                  bsonType: "array",
+                  items: {
+                    bsonType: "object",
+                    properties: {
+                      skinType: { bsonType: "string" },
+                      description: { bsonType: "string" },
+                      top: { bsonType: "string" },
+                      left: { bsonType: "string" }
+                    }
+                  }
                 }
               }
             },
