@@ -86,6 +86,7 @@ func (s *service) InsertPatient(ctx context.Context, patientRequest dto.CreatePa
 	// Create a new chart review for the patient
 	chartReview := dto.ChartReviewEntity{
 		PatientID: patient.PatientID,
+		Charts:    []dto.Chart{},
 	}
 	err = s.chartReviewRepository.Upsert(ctx, chartReview)
 	if err != nil {
