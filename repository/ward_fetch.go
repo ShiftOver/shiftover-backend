@@ -33,3 +33,17 @@ func (r *wardRepository) Exists(ctx context.Context, wardID string) bool {
 
 	return true
 }
+
+func (r *wardRepository) List(ctx context.Context) ([]*dto.WardEntity, error) {
+	cursor, err := r.collection.Find(ctx, bson.D{})
+	if err != nil {
+		return nil, errors.Wrap(err, "error - [wardRepository.List]: unable to list wards")
+	}
+
+	results := make([]*dto.WardEntity, 0)
+	if err := cursor.All(ctx, &results); err != nil {
+		return nil, errors.Wrap(err, "error - [wardRepository.List]: unable to decode results")
+	}
+
+	return results, nil
+}

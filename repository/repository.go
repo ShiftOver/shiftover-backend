@@ -61,6 +61,7 @@ type WardRepository interface {
 	Fetch(ctx context.Context, wardID string) (*dto.WardEntity, error)
 	Exists(ctx context.Context, wardID string) bool
 	Insert(ctx context.Context, payload dto.WardEntity) error
+	List(ctx context.Context) ([]*dto.WardEntity, error)
 }
 
 // RoomRepository represents the repository functions for the rooms collection
@@ -82,6 +83,12 @@ type CounterRepository interface {
 	GetCurrentPatientIDCount(ctx context.Context) (int, error)
 	IncrementPatientIDCount(ctx context.Context) error
 	DecrementPatientIDCount(ctx context.Context) error
+	GetCurrentWardIDCount(ctx context.Context) (int, error)
+	IncrementWardIDCount(ctx context.Context) error
+	DecrementWardIDCount(ctx context.Context) error
+	GetCurrentRoomIDCount(ctx context.Context) (int, error)
+	IncrementRoomIDCount(ctx context.Context) error
+	DecrementRoomIDCount(ctx context.Context) error
 }
 
 // FirebaseAuthRepository represents the repository functions for the firebase auth

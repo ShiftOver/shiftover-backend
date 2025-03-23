@@ -2,6 +2,7 @@ package service
 
 import (
 	"context"
+	"fmt"
 
 	"github.com/pkg/errors"
 
@@ -77,7 +78,23 @@ func (s *service) ListRooms(ctx context.Context) ([]*dto.GetRoomResponse, error)
 }
 
 func (s *service) InsertRoom(ctx context.Context, room dto.RoomEntity) error {
-	err := s.roomRepository.Insert(ctx, room)
+	// Fetch the next room ID from the counter repository
+	roomID, err := s.counterRepository.GetCurrentRoomIDCount(ctx)
+	if err != nil {
+		return errors.Wrap(err, "error - [service.InsertRoom]: unable to fetch current room ID count")
+	}
+
+	// Increment the room ID counter
+	err = s.counterRepository.IncrementRoomIDCount(ctx)
+	if err != nil {
+		return errors.Wrap(err, "error - [service.InsertRoom]: unable to increment room ID count")
+	}
+
+	// Set the room ID
+	room.RoomID = fmt.Sprintf("ROOM-%d", roomID)
+
+	// Insert the room into the database
+	err = s.roomRepository.Insert(ctx, room)
 	if err != nil {
 		return errors.Wrap(err, "error - [service.InsertRoom]: unable to insert room")
 	}
