@@ -15,6 +15,7 @@ type Port interface {
 
 	// User Service
 	GetUser(ctx context.Context, userID string) (*dto.UserEntity, error)
+	InsertUser(ctx context.Context, user dto.UserEntity) error
 
 	// Patient Service
 	GetPatient(ctx context.Context, patientID string) (*dto.PatientEntity, error)
@@ -42,6 +43,11 @@ type Port interface {
 	GetMedication(ctx context.Context, patientID string) (*dto.MedicationEntity, error)
 	InsertMedication(ctx context.Context, medication dto.MedicationEntity) error
 	UpsertMedication(ctx context.Context, medication dto.MedicationEntity) error
+
+	// Ward Service
+	GetWard(ctx context.Context, wardID string) (*dto.WardEntity, error)
+	ListWards(ctx context.Context) ([]*dto.WardEntity, error)
+	InsertWard(ctx context.Context, ward dto.WardEntity) error
 }
 
 type service struct {

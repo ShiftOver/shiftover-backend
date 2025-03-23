@@ -16,6 +16,7 @@ func (h *httpHandler) initRoutes(e *echo.Echo) {
 
 	userV1 := v1.Group("/user")
 	userV1.GET("/:id", h.GetUser)
+	userV1.POST("", h.InsertUser)
 
 	patientV1 := v1.Group("/patient")
 	patientV1.GET("/:id", h.GetPatient)
@@ -37,6 +38,9 @@ func (h *httpHandler) initRoutes(e *echo.Echo) {
 	medicationV1.POST("", h.UpsertMedication)
 
 	wardV1 := v1.Group("/ward")
+	wardV1.GET("", h.ListWards)
+	wardV1.GET("/:id", h.GetWard)
+	wardV1.POST("", h.InsertWard)
 
 	roomV1 := v1.Group("/room")
 	roomV1.GET("", h.ListRooms)
