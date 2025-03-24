@@ -4,9 +4,7 @@ steps:
       - build
       - "-t"
       - "${_GCR_HOSTNAME}/${_PROJECT_ID}/${_SERVICE_NAME}:latest"
-      - "-f"
-      - "build/docker/Dockerfile"
-      - "/workspace/."
+      - "."
     id: Build
 
   - name: gcr.io/cloud-builders/docker
