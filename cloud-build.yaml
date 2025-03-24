@@ -1,0 +1,35 @@
+steps:
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - build
+      - "-t"
+      - "${_GCR_HOSTNAME}/${_PROJECT_ID}/${_SERVICE_NAME}:latest"
+      - .
+      - "-f"
+      - Dockerfile
+    id: Build
+
+  - name: gcr.io/cloud-builders/docker
+    args:
+      - push
+      - "${_GCR_HOSTNAME}/${_PROJECT_ID}/${_SERVICE_NAME}:latest"
+    id: Push
+
+  - name: gcr.io/cloud-builders/gcloud
+    args:
+      - run
+      - deploy
+      - ${_SERVICE_NAME}
+      - --image=${_GCR_HOSTNAME}/${_PROJECT_ID}/${_SERVICE_NAME}:latest
+      - --region=${_DEPLOY_REGION}
+      - --platform=managed
+      - --allow-unauthenticated
+      - --set-secrets
+      - "SPREADSHEET_ID=projects/817094333537/secrets/euroautoparts-landing-page-sheetsId"
+    id: Deploy
+
+substitutions:
+  _DEPLOY_REGION: asia-southeast1
+  _GCR_HOSTNAME: asia.gcr.io
+  _SERVICE_NAME: euroautoparts-sheets-api
+  _PROJECT_ID: 
