@@ -24,6 +24,11 @@ steps:
       - --allow-unauthenticated
     id: Deploy
 
+serviceAccount: projects/${_PROJECT_ID}/serviceAccounts/530660604481-compute@developer.gserviceaccount.com
+
+options:
+  logging: CLOUD_LOGGING_ONLY
+
 substitutions:
   _DEPLOY_REGION: asia-southeast1
   _GCR_HOSTNAME: asia.gcr.io
