@@ -6,7 +6,7 @@ steps:
       - "${_GCR_HOSTNAME}/${_PROJECT_ID}/${_SERVICE_NAME}:latest"
       - .
       - "-f"
-      - Dockerfile
+      - /build/docker/Dockerfile
     id: Build
 
   - name: gcr.io/cloud-builders/docker
@@ -24,12 +24,10 @@ steps:
       - --region=${_DEPLOY_REGION}
       - --platform=managed
       - --allow-unauthenticated
-      - --set-secrets
-      - "SPREADSHEET_ID=projects/817094333537/secrets/euroautoparts-landing-page-sheetsId"
     id: Deploy
 
 substitutions:
   _DEPLOY_REGION: asia-southeast1
   _GCR_HOSTNAME: asia.gcr.io
-  _SERVICE_NAME: euroautoparts-sheets-api
-  _PROJECT_ID: 
+  _SERVICE_NAME: shiftover-backend
+  _PROJECT_ID: shiftover-585e0
